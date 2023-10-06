@@ -1,0 +1,903 @@
+%SIGNAL
+PIN  17 =  A0 
+PIN  16 =  A1 
+PIN  15 =  A2 
+PIN  73 =  CD0 
+PIN  70 =  CD1 
+PIN  81 =  CLK_IN 
+PIN  39 = !CON_CS 
+PIN  60 = !CON_INT 
+PIN 123 =  CON_INT_EN 
+PIN 124 =  CON_RDY 
+PIN  96 =  CR0 
+PIN  95 =  CR1 
+PIN  94 =  CR2 
+PIN  93 =  CR3 
+PIN  92 =  CR4 
+PIN  91 =  CR5 
+PIN  90 =  CR6 
+PIN  89 =  CR7 
+PIN  85 =  CRR 
+PIN  76 = !CS0 
+PIN  75 = !CS1 
+PIN  74 = !CS2 
+PIN  87 =  CSR 
+PIN 112 =  CST0 
+PIN 111 =  CST1 
+PIN 110 =  CST2 
+PIN 109 =  CST3 
+PIN 108 =  CST4 
+PIN 107 =  CST5 
+PIN 106 =  CST6 
+PIN 105 =  CST7 
+PIN  12 =  D0 
+PIN  11 =  D1 
+PIN  10 =  D2 
+PIN   9 =  D3 
+PIN   8 =  D4 
+PIN   6 =  D5 
+PIN   5 =  D6 
+PIN   4 =  D7 
+PIN 104 =  DR0 
+PIN 103 =  DR1 
+PIN 102 =  DR2 
+PIN 101 =  DR3 
+PIN 100 =  DR4 
+PIN  99 =  DR5 
+PIN  98 =  DR6 
+PIN  97 =  DR7 
+PIN  86 =  DRR 
+PIN  88 =  DSR 
+PIN  55 =  IA0 
+PIN  54 =  IA1 
+PIN  84 = !IRD 
+PIN  83 = !IWR 
+PIN  79 =  MISO 
+PIN  80 =  MOSI 
+PIN  57 =  PD0 
+PIN  56 =  PD1 
+PIN  52 =  PD2 
+PIN  51 =  PD3 
+PIN  50 =  PD4 
+PIN  49 =  PD5 
+PIN  48 =  PD6 
+PIN  46 =  PD7 
+PIN   2 = !RD 
+PIN   1 = !RST 
+PIN  77 =  SCK 
+PIN 144 =  SCK_EN 
+PIN  63 =  SP10 
+PIN 142 =  SPI_CLK_DIV0 
+PIN 141 =  SPI_CLK_DIV1 
+PIN 140 =  SPI_CLK_DIV2 
+PIN 139 =  SPI_CLK_DIV3 
+PIN 138 =  SPI_CLK_DIV4 
+PIN 137 =  SPI_CLK_DIV5 
+PIN 143 =  SPI_CLK_SEL 
+PIN 136 =  SPI_CNT0 
+PIN 135 =  SPI_CNT1 
+PIN 134 =  SPI_CNT2 
+PIN 133 =  SPI_CNT3 
+PIN  40 = !SPI_CS 
+PIN 147 =  SPI_DRDY0 
+PIN 146 =  SPI_DRDY1 
+PIN  58 = !SPI_INT 
+PIN 145 =  SPI_INT_EN 
+PIN 132 =  SPI_SR0 
+PIN 131 =  SPI_SR1 
+PIN 130 =  SPI_SR2 
+PIN 129 =  SPI_SR3 
+PIN 128 =  SPI_SR4 
+PIN 127 =  SPI_SR5 
+PIN 126 =  SPI_SR6 
+PIN 125 =  SPI_SR7 
+PIN  61 = !TMR_INT 
+PIN 121 =  TMR_INT_EN 
+PIN 122 =  TMR_RDY 
+PIN 120 =  TST0 
+PIN 119 =  TST1 
+PIN 118 =  TST2 
+PIN 117 =  TST3 
+PIN 116 =  TST4 
+PIN 115 =  TST5 
+PIN 114 =  TST6 
+PIN 113 =  TST7 
+PIN  41 = !WR 
+%END
+
+%FIELD
+FIELD ADDR = A2,A1,A0
+FIELD IADD = IA1,IA0
+%END
+
+%EQUATION
+CON_INT =>
+    CON_INT_EN & CON_RDY
+
+CON_INT_EN.d  =>
+    D0
+
+CON_INT_EN.ar  =>
+    RST
+
+CON_INT_EN.ck  =>
+    A0 & !A1 & !A2 & CON_CS & WR
+
+CON_RDY.d  =>
+    1 
+
+CON_RDY.ar  =>
+    RST
+  # A0 & !A1 & !A2 & CON_CS & RD
+
+CON_RDY.ck  =>
+    IA0 & !IA1 & IWR
+
+CR0.d  =>
+    CON_CS & D0 & WR
+  # IWR & PD0
+
+CR0.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR1.d  =>
+    CON_CS & D1 & WR
+  # IWR & PD1
+
+CR1.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR2.d  =>
+    CON_CS & D2 & WR
+  # IWR & PD2
+
+CR2.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR3.d  =>
+    CON_CS & D3 & WR
+  # IWR & PD3
+
+CR3.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR4.d  =>
+    CON_CS & D4 & WR
+  # IWR & PD4
+
+CR4.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR5.d  =>
+    CON_CS & D5 & WR
+  # IWR & PD5
+
+CR5.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR6.d  =>
+    CON_CS & D6 & WR
+  # IWR & PD6
+
+CR6.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR7.d  =>
+    CON_CS & D7 & WR
+  # IWR & PD7
+
+CR7.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CRR.d  =>
+    1 
+
+CRR.ar  =>
+    RST
+  # !A0 & A1 & !A2 & CON_CS & RD
+
+CRR.ck  =>
+    !IA0 & IA1 & IWR
+
+CS0.d  =>
+    D0
+
+CS0.ar  =>
+    RST
+
+CS0.ck  =>
+    A0 & SPI_CS & WR
+
+CS1.d  =>
+    D1
+
+CS1.ar  =>
+    RST
+
+CS1.ck  =>
+    A0 & SPI_CS & WR
+
+CS2.d  =>
+    D2
+
+CS2.ar  =>
+    RST
+
+CS2.ck  =>
+    A0 & SPI_CS & WR
+
+CSR.d  =>
+    1 
+
+CSR.ar  =>
+    RST
+  # !IA0 & IA1 & IRD
+
+CSR.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+
+CST0.d  =>
+    PD0
+
+CST0.ck  =>
+    IA0 & !IA1 & IWR
+
+CST1.d  =>
+    PD1
+
+CST1.ck  =>
+    IA0 & !IA1 & IWR
+
+CST2.d  =>
+    PD2
+
+CST2.ck  =>
+    IA0 & !IA1 & IWR
+
+CST3.d  =>
+    PD3
+
+CST3.ck  =>
+    IA0 & !IA1 & IWR
+
+CST4.d  =>
+    PD4
+
+CST4.ck  =>
+    IA0 & !IA1 & IWR
+
+CST5.d  =>
+    PD5
+
+CST5.ck  =>
+    IA0 & !IA1 & IWR
+
+CST6.d  =>
+    PD6
+
+CST6.ck  =>
+    IA0 & !IA1 & IWR
+
+CST7.d  =>
+    PD7
+
+CST7.ck  =>
+    IA0 & !IA1 & IWR
+
+D0 =>
+    !A0 & SPI_CS & SPI_SR1
+  # A0 & SPI_CS & SPI_DRDY0
+  # A0 & SCK_EN & SPI_CS
+  # !A0 & !A1 & !A2 & CON_CS & TST0
+  # A0 & !A1 & !A2 & CON_CS & CST0
+  # !A0 & A1 & !A2 & CON_CS & CR0
+  # !A0 & !A1 & A2 & CON_CS & CRR
+  # A0 & A1 & !A2 & CON_CS & DR0
+
+D0.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D1 =>
+    A0 & CD0 & SPI_CS
+  # !A0 & SPI_CS & SPI_SR2
+  # !A0 & !A1 & !A2 & CON_CS & TST1
+  # A0 & !A1 & !A2 & CON_CS & CST1
+  # !A0 & A1 & !A2 & CON_CS & CR1
+  # !A0 & !A1 & A2 & CON_CS & DRR
+  # A0 & A1 & !A2 & CON_CS & DR1
+
+D1.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D2 =>
+    A0 & CD1 & SPI_CS
+  # !A0 & SPI_CS & SPI_SR3
+  # !A0 & !A1 & !A2 & CON_CS & TST2
+  # A0 & !A1 & !A2 & CON_CS & CST2
+  # !A0 & A1 & !A2 & CON_CS & CR2
+  # !A0 & !A1 & A2 & CON_CS & CSR
+  # A0 & A1 & !A2 & CON_CS & DR2
+
+D2.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D3 =>
+    !A0 & SPI_CS & SPI_SR4
+  # !A0 & !A1 & !A2 & CON_CS & TST3
+  # A0 & !A1 & !A2 & CON_CS & CST3
+  # !A0 & A1 & !A2 & CON_CS & CR3
+  # !A0 & !A1 & A2 & CON_CS & DSR
+  # A0 & A1 & !A2 & CON_CS & DR3
+
+D3.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D4 =>
+    !A0 & SPI_CS & SPI_SR5
+  # !A0 & !A1 & !A2 & CON_CS & TST4
+  # A0 & !A1 & !A2 & CON_CS & CST4
+  # !A0 & A1 & !A2 & CON_CS & CR4
+  # !A0 & !A1 & A2 & CON_CS & CON_RDY
+  # A0 & A1 & !A2 & CON_CS & DR4
+
+D4.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D5 =>
+    A0 & SPI_CS & SPI_INT_EN
+  # !A0 & SPI_CS & SPI_SR6
+  # !A0 & !A1 & !A2 & CON_CS & TST5
+  # A0 & !A1 & !A2 & CON_CS & CST5
+  # !A0 & A1 & !A2 & CON_CS & CR5
+  # !A0 & !A1 & A2 & CON_CS & TMR_RDY
+  # A0 & A1 & !A2 & CON_CS & DR5
+
+D5.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D6 =>
+    A0 & SPI_CS & SPI_INT
+  # !A0 & SPI_CS & SPI_SR7
+  # !A0 & !A1 & !A2 & CON_CS & TST6
+  # A0 & !A1 & !A2 & CON_CS & CST6
+  # A0 & A1 & !A2 & CON_CS & DR6
+  # !A0 & A1 & !A2 & CON_CS & CR6
+
+D6.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D7 =>
+    A0 & SPI_CLK_SEL & SPI_CS
+  # !A0 & MOSI & SPI_CS
+  # !A0 & !A1 & !A2 & CON_CS & TST7
+  # A0 & !A1 & !A2 & CON_CS & CST7
+  # A0 & A1 & !A2 & CON_CS & DR7
+  # !A0 & A1 & !A2 & CON_CS & CR7
+
+D7.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+DR0.d  =>
+    CON_CS & D0 & WR
+  # IWR & PD0
+
+DR0.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR1.d  =>
+    CON_CS & D1 & WR
+  # IWR & PD1
+
+DR1.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR2.d  =>
+    CON_CS & D2 & WR
+  # IWR & PD2
+
+DR2.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR3.d  =>
+    CON_CS & D3 & WR
+  # IWR & PD3
+
+DR3.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR4.d  =>
+    CON_CS & D4 & WR
+  # IWR & PD4
+
+DR4.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR5.d  =>
+    CON_CS & D5 & WR
+  # IWR & PD5
+
+DR5.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR6.d  =>
+    CON_CS & D6 & WR
+  # IWR & PD6
+
+DR6.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR7.d  =>
+    CON_CS & D7 & WR
+  # IWR & PD7
+
+DR7.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DRR.d  =>
+    1 
+
+DRR.ar  =>
+    RST
+  # A0 & A1 & !A2 & CON_CS & RD
+
+DRR.ck  =>
+    IA0 & IA1 & IWR
+
+DSR.d  =>
+    1 
+
+DSR.ar  =>
+    RST
+  # IA0 & IA1 & IRD
+
+DSR.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+
+MOSI.d  =>
+    SPI_SR7
+
+MOSI.ap  =>
+    RST
+
+MOSI.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+PD0 =>
+    CRR & !IA0 & !IA1
+  # CR0 & !IA0 & IA1
+  # DR0 & IA0 & IA1
+
+PD0.oe  =>
+    IRD
+
+PD1 =>
+    DRR & !IA0 & !IA1
+  # CR1 & !IA0 & IA1
+  # DR1 & IA0 & IA1
+
+PD1.oe  =>
+    IRD
+
+PD2 =>
+    CSR & !IA0 & !IA1
+  # CR2 & !IA0 & IA1
+  # DR2 & IA0 & IA1
+
+PD2.oe  =>
+    IRD
+
+PD3 =>
+    DSR & !IA0 & !IA1
+  # CR3 & !IA0 & IA1
+  # DR3 & IA0 & IA1
+
+PD3.oe  =>
+    IRD
+
+PD4 =>
+    CON_INT & !IA0 & !IA1
+  # CR4 & !IA0 & IA1
+  # DR4 & IA0 & IA1
+
+PD4.oe  =>
+    IRD
+
+PD5 =>
+    !IA0 & !IA1 & TMR_INT
+  # CR5 & !IA0 & IA1
+  # DR5 & IA0 & IA1
+
+PD5.oe  =>
+    IRD
+
+PD6 =>
+    CR6 & !IA0 & IA1
+  # DR6 & IA0 & IA1
+
+PD6.oe  =>
+    IRD
+
+PD7 =>
+    CR7 & !IA0 & IA1
+  # DR7 & IA0 & IA1
+
+PD7.oe  =>
+    IRD
+
+SCK =>
+    SCK_EN & SPI_CLK_DIV5 & !SPI_CLK_SEL
+  # CLK_IN & SCK_EN & SPI_CLK_SEL
+
+SCK_EN.d  =>
+    !SPI_CNT3 & SPI_DRDY1
+
+SCK_EN.ck  =>
+    !CLK_IN & SPI_CLK_SEL
+  # !SPI_CLK_DIV5 & !SPI_CLK_SEL
+  # !CLK_IN & !SPI_CLK_DIV5
+
+SCT2 =>
+    SPI_CNT0 & SPI_CNT1
+
+SCT3 =>
+    SPI_CNT0 & SPI_CNT1 & SPI_CNT2
+
+SPI_CLK =>
+    CLK_IN & SPI_CLK_SEL
+  # SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_CLK_DIV0.t  =>
+    1 
+
+SPI_CLK_DIV0.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV1.t  =>
+    SPI_CLK_DIV0
+
+SPI_CLK_DIV1.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV2.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1
+
+SPI_CLK_DIV2.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV3.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2
+
+SPI_CLK_DIV3.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV4.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3
+
+SPI_CLK_DIV4.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV5.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3 & SPI_CLK_DIV4
+
+SPI_CLK_DIV5.ckmux  =>
+    CLK_IN
+
+SPI_CLK_SEL.d  =>
+    D7
+
+SPI_CLK_SEL.ar  =>
+    RST
+
+SPI_CLK_SEL.ck  =>
+    A0 & SPI_CS & WR
+
+SPI_CNT0.t  =>
+    1 
+
+SPI_CNT0.ap  =>
+    RST
+
+SPI_CNT0.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT0.ck  =>
+    SCK
+
+SPI_CNT1.t  =>
+    SPI_CNT0
+
+SPI_CNT1.ap  =>
+    RST
+
+SPI_CNT1.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT1.ck  =>
+    SCK
+
+SPI_CNT2.t  =>
+    SPI_CNT0 & SPI_CNT1
+
+SPI_CNT2.ap  =>
+    RST
+
+SPI_CNT2.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT2.ck  =>
+    SCK
+
+SPI_CNT3.t  =>
+    SPI_CNT0 & SPI_CNT1 & SPI_CNT2
+
+SPI_CNT3.ap  =>
+    RST
+
+SPI_CNT3.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT3.ck  =>
+    SCK
+
+SPI_DRDY0.d  =>
+    1 
+
+SPI_DRDY0.ar  =>
+    RST
+  # SCK_EN & SPI_CNT3
+
+SPI_DRDY0.ck  =>
+    !SPI_CS
+  # A0
+  # !WR
+
+SPI_DRDY1.d  =>
+    SPI_DRDY0
+
+SPI_DRDY1.ck  =>
+    CLK_IN & SPI_CLK_SEL
+  # SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_DWR =>
+    !A0 & SPI_CS & WR
+
+SPI_INT.d  =>
+    SPI_INT_EN
+
+SPI_INT.ar  =>
+    !A0 & RD & SPI_CS
+  # !A0 & SPI_CS & WR
+
+SPI_INT.ck  =>
+    !SCK_EN & SPI_CNT3
+
+SPI_INT_EN.d  =>
+    D5
+
+SPI_INT_EN.ar  =>
+    RST
+
+SPI_INT_EN.ck  =>
+    A0 & SPI_CS & WR
+
+SPI_SR0.d  =>
+    MISO & SCK_EN
+  # D0 & !SCK_EN
+
+SPI_SR0.ap  =>
+    RST
+
+SPI_SR0.ck  =>
+    SCK
+  # !A0 & SPI_CS & WR
+
+SPI_SR1.d  =>
+    SCK_EN & SPI_SR0
+  # D1 & !SCK_EN
+
+SPI_SR1.ap  =>
+    RST
+
+SPI_SR1.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR2.d  =>
+    SCK_EN & SPI_SR1
+  # D2 & !SCK_EN
+
+SPI_SR2.ap  =>
+    RST
+
+SPI_SR2.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR3.d  =>
+    SCK_EN & SPI_SR2
+  # D3 & !SCK_EN
+
+SPI_SR3.ap  =>
+    RST
+
+SPI_SR3.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR4.d  =>
+    SCK_EN & SPI_SR3
+  # D4 & !SCK_EN
+
+SPI_SR4.ap  =>
+    RST
+
+SPI_SR4.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR5.d  =>
+    SCK_EN & SPI_SR4
+  # D5 & !SCK_EN
+
+SPI_SR5.ap  =>
+    RST
+
+SPI_SR5.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR6.d  =>
+    SCK_EN & SPI_SR5
+  # D6 & !SCK_EN
+
+SPI_SR6.ap  =>
+    RST
+
+SPI_SR6.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR7.d  =>
+    SCK_EN & SPI_SR6
+  # D7 & !SCK_EN
+
+SPI_SR7.ap  =>
+    RST
+
+SPI_SR7.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SRCK =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR_SEL =>
+    !A0 & SPI_CS
+
+ST2 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1
+
+ST3 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2
+
+ST4 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3
+
+ST5 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3 & SPI_CLK_DIV4
+
+TMR_INT =>
+    TMR_INT_EN & TMR_RDY
+
+TMR_INT_EN.d  =>
+    D0
+
+TMR_INT_EN.ar  =>
+    RST
+
+TMR_INT_EN.ck  =>
+    !A0 & !A1 & !A2 & CON_CS & WR
+
+TMR_RDY.d  =>
+    1 
+
+TMR_RDY.ar  =>
+    RST
+  # !A0 & !A1 & !A2 & CON_CS & RD
+
+TMR_RDY.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST0.d  =>
+    PD0
+
+TST0.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST1.d  =>
+    PD1
+
+TST1.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST2.d  =>
+    PD2
+
+TST2.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST3.d  =>
+    PD3
+
+TST3.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST4.d  =>
+    PD4
+
+TST4.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST5.d  =>
+    PD5
+
+TST5.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST6.d  =>
+    PD6
+
+TST6.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST7.d  =>
+    PD7
+
+TST7.ck  =>
+    !IA0 & !IA1 & IWR
+
+%END

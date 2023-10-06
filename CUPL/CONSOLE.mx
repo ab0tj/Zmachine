@@ -1,0 +1,252 @@
+Name     Console ;
+PartNo   00 ;
+Date     9/16/2022 ;
+Revision 01 ;
+Designer Engineer ;
+Company  AB0TJ ;
+Assembly None ;
+Location  ;
+Device	  f1508ispplcc84;
+
+property   atmel {tdi_pullup=on};
+property   atmel {tms_pullup=on};
+
+/* INPUT PINS */
+PIN [4..6,8..12] = [D7..0];		/* DATA TO/FROM SYSTEM */
+PIN [15..17] = [A2..0];			/* ADDRESS FROM SYSTEM */
+PIN 1 = !RST;					/* SYSTEM RESET */
+PIN 40 = !SPI_CS;				/* SPI CHIP SELECT */
+PIN 39 = !CON_CS;				/* CONSOLE CHIP SELECT */
+PIN 2 = !RD;					/* READ STROBE FROM SYSTEM */
+PIN 41 = !WR;					/* WRITE STROBE FROM SYSTEM */
+PIN 83 = !IWR;					/* WRITE STROBE FROM PICO */
+PIN 84 = !IRD;					/* READ STROBE FROM PICO */
+PIN [54,55] = [IA1,IA0];			/* ADDRESS FROM PICO */
+PIN [46,48..52,56,57] = [PD7..0];	/* DATA BUS TO/FROM PICO */
+PIN 81 = CLK_IN;				/* SPI CLOCK IN */
+PIN 79 = MISO;					/* SPI RX */
+PIN [70,73] = [CD1..0];			/* SD CARD DETECT */
+
+/* OUTPUT PINS */
+PIN 61 = !TMR_INT;				/* TIMER INTERRUPT */
+PIN 60 = !CON_INT;				/* CONSOLE INTERRUPT */
+PIN 58 = !SPI_INT;				/* SPI INTERRUPT */
+PIN [74..76] = ![CS2..0];		/* SPI CHIP SELECTS */
+PIN 80 = MOSI;					/* SPI TX */
+PIN 77 = SCK;					/* SPI CLOCK OUT */
+PIN 63 = SP10;
+
+/* NODES */
+NODE CRR;						/* CONTROL READ READY */
+NODE DRR;						/* DATA READ READY*/
+NODE CSR;						/* CONTROL SEND READY */
+NODE DSR;						/* DATA SEND READY */
+NODE [CR7..0];					/* CONSOLE CONTROL REGISTER */
+NODE [DR7..0];					/* CONSOLE DATA REGISTER */
+NODE [CST7..0];				/* CONSOLE STATUS REGISTER */
+NODE [TST7..0];				/* TIMER STATUS REGISTER */
+NODE TMR_INT_EN;				/* TIMER INTERRUPT ENABLE */
+NODE TMR_RDY;
+NODE CON_INT_EN;				/* CONSOLE INTERRUPT ENABLE */
+NODE CON_RDY;
+NODE [SPI_SR7..0];				/* SPI DATA SHIFT REGISTER */
+NODE [SPI_CNT3..0];				/* SPI DATA COUNTER */
+NODE [SPI_CLK_DIV5..0];			/* SPI CLOCK DIVIDER */
+NODE SPI_CLK_SEL;				/* SPI FAST/SLOW CLOCK SELECT */
+//NODE SPI_CLK;				/* SPI MASTER CLOCK */
+NODE SCK_EN;					/* ENABLE SCK CLOCK */
+//NODE SPI_SRCK;				/* SPI SHIFT REGISTER CLOCK */
+NODE SPI_INT_EN;				/* SPI TRANSFER COMPLETE INTERRUPT ENABLE */
+NODE [SPI_DRDY1..0];
+
+/* FIELDS */
+FIELD ADDR = [A2..0];
+FIELD IADD = [IA1..0];
+
+/* CONSOLE/TIMER EQUATIONS */
+
+/* CRR FLAG */
+/* CLEAR ON RESET OR SYSTEM READ FROM PORT 2 */
+CRR.ar = RST # (CON_CS & RD & ADDR:2);
+/* SET ON PICO WRITE TO PORT 2 */
+CRR.d = 'b'1;
+CRR.ck = IWR & IADD:2;
+
+/* DRR FLAG */
+/* CLEAR ON RESET OR SYSTEM READ FROM PORT 3 */
+DRR.ar = RST # (CON_CS & RD & ADDR:3);
+/* SET ON PICO WRITE TO PORT 3 */
+DRR.d = 'b'1;
+DRR.ck = IWR & IADD:3;
+
+/* CSR FLAG */
+/* CLEAR ON RESET OR PICO READ FROM PORT 2 */
+CSR.ar = RST # (IRD & IADD:2);
+/* SET ON SYSTEM WRITE TO PORT 2 */
+CSR.d = 'b'1;
+CSR.ck = CON_CS & WR & ADDR:2;
+
+/* DSR FLAG */
+/* CLEAR ON RESET OR PICO READ FROM PORT 3 */
+DSR.ar = RST # (IRD & IADD:3);
+/* SET ON SYSTEM WRITE TO PORT 3 */
+DSR.d = 'b'1;
+DSR.ck = CON_CS & WR & ADDR:3;
+
+/* TIMER READY */
+/* CLEAR ON RESET OR SYSTEM READ FROM PORT 0 */
+TMR_RDY.ar = RST # (CON_CS & RD & ADDR:0);
+/* SET ON PICO WRITE TO PORT 0 */
+TMR_RDY.d = 'b'1;
+TMR_RDY.ck = IWR & IADD:0;
+TMR_INT = TMR_RDY & TMR_INT_EN;
+
+/* TIMER INTERRUPT ENABLE */
+TMR_INT_EN.ar = RST;
+TMR_INT_EN.d = D0;
+TMR_INT_EN.ck = CON_CS & WR & ADDR:0;
+
+/* CONSOLE READY  */
+/* CLEAR ON RESET OR SYSTEM READ FROM PORT 1 */
+CON_RDY.ar = RST # (CON_CS & RD & ADDR:1);
+/* SET ON PICO WRITE TO PORT 1 */
+CON_RDY.d = 'b'1;
+CON_RDY.ck = IWR & IADD:1;
+CON_INT = CON_RDY & CON_INT_EN;
+
+/* CONSOLE INTERRUPT ENABLE */
+CON_INT_EN.ar = RST;
+CON_INT_EN.d = D0;
+CON_INT_EN.ck = CON_CS & WR & ADDR:1;
+
+/* CONTROL REGISTER - PORT 2 */
+[CR7..0].d = ((CON_CS & WR) & [D7..0]) # (IWR & [PD7..0]);
+[CR7..0].ck = (CON_CS & WR & ADDR:2) # (IWR & IADD:2);
+
+/* DATA REGISTER - PORT 3 */
+[DR7..0].d = ((CON_CS & WR) & [D7..0]) # (IWR & [PD7..0]);
+[DR7..0].ck = (CON_CS & WR & ADDR:3) # (IWR & IADD:3);
+
+/* TIMER STATUS REGISTER - PORT 0 */
+/* Clears on read */
+[TST7..0].d = [PD7..0];
+[TST7..0].ck = IWR & IADD:0;
+
+/* CONSOLE STATUS REGISTER - PORT 1 */
+[CST7..0].d = [PD7..0];
+[CST7..0].ck = IWR & IADD:1;
+
+/* PICO DATA BUS */
+[PD7..0].oe = IRD;
+PD7 = (IADD:2 & CR7) # (IADD:3 & DR7);
+PD6 = (IADD:2 & CR6) # (IADD:3 & DR6);
+PD5 = (IADD:0 & TMR_INT) # (IADD:2 & CR5) # (IADD:3 & DR5);
+PD4 = (IADD:0 & CON_INT) # (IADD:2 & CR4) # (IADD:3 & DR4);
+PD3 = (IADD:0 & DSR) # (IADD:2 & CR3) # (IADD:3 & DR3);
+PD2 = (IADD:0 & CSR) # (IADD:2 & CR2) # (IADD:3 & DR2);
+PD1 = (IADD:0 & DRR) # (IADD:2 & CR1) # (IADD:3 & DR1);
+PD0 = (IADD:0 & CRR) # (IADD:2 & CR0) # (IADD:3 & DR0);
+
+
+/* SPI EQUATIONS */
+
+/* SPI CLOCK DIVIDER */
+/* Divides input clock by 64 for SD card initialization */
+SPI_CLK_DIV0.t = 'b'1;
+SPI_CLK_DIV1.t = SPI_CLK_DIV0;
+ST2 = SPI_CLK_DIV0 & SPI_CLK_DIV1;
+SPI_CLK_DIV2.t = ST2;
+ST3 = ST2 & SPI_CLK_DIV2;
+SPI_CLK_DIV3.t = ST3;
+ST4 = ST3 & SPI_CLK_DIV3;
+SPI_CLK_DIV4.t = ST4;
+ST5 = ST4 & SPI_CLK_DIV4;
+SPI_CLK_DIV5.t = ST5;
+[SPI_CLK_DIV0..5].ckmux = CLK_IN;
+SPI_CLK = (SPI_CLK_SEL & CLK_IN) # (!SPI_CLK_SEL & SPI_CLK_DIV5);
+
+/* SPI SHIFT REGISTER */
+SPI_SR_SEL = SPI_CS & !A0;
+SPI_DWR = SPI_SR_SEL & WR;
+SPI_SR0.d = (SCK_EN & MISO) # (!SCK_EN & D0);
+SPI_SR0.ck = (SCK # SPI_DWR);
+SPI_SR1.d = (SCK_EN & SPI_SR0) # (!SCK_EN & D1);
+SPI_SR2.d = (SCK_EN & SPI_SR1) # (!SCK_EN & D2);
+SPI_SR3.d = (SCK_EN & SPI_SR2) # (!SCK_EN & D3);
+SPI_SR4.d = (SCK_EN & SPI_SR3) # (!SCK_EN & D4);
+SPI_SR5.d = (SCK_EN & SPI_SR4) # (!SCK_EN & D5);
+SPI_SR6.d = (SCK_EN & SPI_SR5) # (!SCK_EN & D6);
+SPI_SR7.d = (SCK_EN & SPI_SR6) # (!SCK_EN & D7);
+[SPI_SR1..7].ck = SPI_SRCK;
+[SPI_SR0..7].ap = RST;
+MOSI.d = SPI_SR7;
+MOSI.ck = SPI_SRCK;
+MOSI.ap = RST;
+
+/* SPI BIT COUNTER */
+SPI_CNT0.t = 'b'1;
+SPI_CNT1.t = SPI_CNT0; //& SCK;
+SCT2 = SPI_CNT0 & SPI_CNT1; //& SCK;
+SPI_CNT2.t = SCT2;
+SCT3 = SCT2 & SPI_CNT2; //& SCK;
+SPI_CNT3.t = SCT3;
+[SPI_CNT0..3].ck = SCK;
+[SPI_CNT0..3].ap = RST;
+[SPI_CNT0..3].ar = SPI_DWR;
+
+/* SPI CONTROL SIGNALS */
+SCK_EN.d = SPI_DRDY1 & !SPI_CNT3;
+SCK_EN.ck = !SPI_CLK;
+SCK = SCK_EN & SPI_CLK;
+SPI_SRCK = SPI_DWR # (SCK_EN & !SPI_CLK);
+SPI_INT.d = SPI_INT_EN;
+SPI_INT.ck = SPI_CNT3 & !SCK_EN;
+SPI_INT.ar = (SPI_SR_SEL & RD) # SPI_DWR;
+
+/* Delay line for writes to SPI shift register. Without this we sometimes get runt SCK pulses */
+SPI_DRDY0.d = 'b'1;
+SPI_DRDY0.ck = !SPI_DWR;
+SPI_DRDY0.ar = RST # (SCK_EN & SPI_CNT3);
+SPI_DRDY1.d = SPI_DRDY0;
+SPI_DRDY1.ck = SPI_CLK;
+
+/* SPI CONTROL REGISTER (WRITE) */
+[CS2..0].d = [D2..0];
+[CS2..0].ck = SPI_CS & A0 & WR;
+[CS2..0].ar = RST;
+SPI_INT_EN.d = D5;
+SPI_INT_EN.ck = SPI_CS & A0 & WR;
+SPI_INT_EN.ar = RST;
+SPI_CLK_SEL.d = D7;
+SPI_CLK_SEL.ck = SPI_CS & A0 & WR;
+SPI_CLK_SEL.ar = RST;
+
+
+/* SHARED EQUATIONS */
+
+/* SYSTEM DATA BUS */
+[D7..0].oe = (SPI_CS # CON_CS) & RD;
+
+D7 = (SPI_CS & ((!A0 & MOSI) # (A0 & SPI_CLK_SEL)))
+	# (CON_CS & ((ADDR:0 & TST7) # (ADDR:1 & CST7) # (ADDR:2 & CR7) # (ADDR:3 & DR7)));
+
+D6 = (SPI_CS & ((!A0 & SPI_SR7) # (SPI_CS & A0 & SPI_INT)))
+	# (CON_CS & ((ADDR:0 & TST6) # (ADDR:1 & CST6) # (ADDR:2 & CR6) # (ADDR:3 & DR6)));
+
+D5 = (SPI_CS & ((!A0 & SPI_SR6) # (A0 & SPI_INT_EN)))
+	# (CON_CS & ((ADDR:0 & TST5) # (ADDR:1 & CST5) # (ADDR:2 & CR5) # (ADDR:3 & DR5) # (ADDR:4 & TMR_RDY)));
+
+D4 = (SPI_CS & !A0 & SPI_SR5)
+	# (CON_CS & ((ADDR:0 & TST4) # (ADDR:1 & CST4) # (ADDR:2 & CR4) # (ADDR:3 & DR4) # (ADDR:4 & CON_RDY)));
+
+D3 = (SPI_CS & !A0 & SPI_SR4)
+	# (CON_CS & ((ADDR:0 & TST3) # (ADDR:1 & CST3) # (ADDR:2 & CR3) # (ADDR:3 & DR3) # (ADDR:4 & DSR)));
+
+D2 = (SPI_CS & ((!A0 & SPI_SR3) # (A0 & CD1)))
+	# (CON_CS & ((ADDR:0 & TST2) # (ADDR:1 & CST2) # (ADDR:2 & CR2) # (ADDR:3 & DR2) # (ADDR:4 & CSR)));
+
+D1 = (SPI_CS & ((!A0 & SPI_SR2) # (A0 & CD0)))
+	# (CON_CS & ((ADDR:0 & TST1) # (ADDR:1 & CST1) # (ADDR:2 & CR1) # (ADDR:3 & DR1) # (ADDR:4 & DRR)));
+
+D0 = (SPI_CS & ((!A0 & SPI_SR1) # (A0 & (SCK_EN # SPI_DRDY0))))
+	# (CON_CS & ((ADDR:0 & TST0) # (ADDR:1 & CST0) # (ADDR:2 & CR0) # (ADDR:3 & DR0) # (ADDR:4 & CRR)));

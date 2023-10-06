@@ -1,0 +1,148 @@
+Name     Z80-SBC ;
+PartNo   U31 ;
+Date     7/8/2021 ;
+Revision 01 ;
+Designer Engineer ;
+Company  AB0TJ ;
+Assembly None ;
+Location  ;
+Device   f1508ispplcc84;
+
+property   atmel {output_fast=off};
+property   atmel {pin_keep=off};
+property   atmel {security=off};
+//property   atmel {xor_synthesis=on};
+property   atmel {tdi_pullup = on};
+property   atmel {tms_pullup = on};
+
+/* INPUT PINS */
+PIN 1 = !RST;		/* System reset */
+PIN 84 = !RD;		/* /RD from Z80 */
+PIN 2 = !WR;		/* /WR from Z80 */
+PIN 83 = !MREQ;	    /* /MREQ from Z80 */
+PIN 41 = !IORQ;	    /* /IORQ from Z80 */
+PIN 40 = !M1;		/* /M1 from Z80 */
+PIN 39 = !BAK;		/* /BUSACK from Z80 */
+PIN 75 = INT;		/* INT from 8259 */
+PIN 22 = !PHANT;	/* S100 style Phantom line (disables onboard memory) */
+PIN [16,15,12..8,6] = [D0..D7];	/* Data bus */
+PIN [21,20] = [A15,A14];		/* Z80 address bus */
+PIN [52..48,46..44] = [A7..A0];	/* Z80 address bus */
+
+/* OUTPUT PINS */
+PIN 37 = !ROM_CS;   /* Flash Chip Select */
+PIN 36 = !RAM_CS;   /* SRAM Chip Select */
+PIN 35 = !UART_CS;  /* DUART Chip Select */
+PIN 34 = !SPI_CS;   /* SPI Chip Select */
+PIN 33 = !CON_CS;   /* Console Chip Select */
+PIN 31 = !PIC_CS;   /* 8259 Chip Select */
+PIN 60 = !FLP_CS;	 /* Floppy Chip Select */
+PIN 58 = TC;		 /* TC signal to floppy controller */
+PIN 30 = !INTA;     /* /INTA to 8259 */
+PIN 25 = RSTo;      /* Active high reset output */
+PIN 27 = !RDo;      /* /RD to system bus */
+PIN 28 = !WRo;      /* /WR to system bus */
+PIN 24 = !BUSACK;	 /* /BUSACK to system bus */
+PIN [55,54] = ![LED1,LED0]; /* Onboard LEDs */
+PIN [74,73,70..67,65..63,61] = [MA23..MA14];   /* Extended addresss lines */
+
+/* OTHER STUFF */
+NODE INTACK;			    /* Flip-flop for INTA pulses */
+NODE MMUEN;			        /* Flip-flop to enable/disable MMU */
+NODE MMU;                   /* MMU is active */
+NODE [ROM3..0];             /* MMU /ROM bits */
+NODE [WP3..0];              /* MMU Write Protect bits */
+NODE [MA_0_24..MA_0_14];    /* MMU page 0 address bits */
+NODE [MA_1_24..MA_1_14];    /* MMU page 1 address bits */
+NODE [MA_2_24..MA_2_14];    /* MMU page 2 address bits */
+NODE [MA_3_24..MA_3_14];    /* MMU page 3 address bits */
+FIELD IOADDR = [A7..A0];    /* Address for IO ports */
+FIELD MMUADDR = [A2..A0];   /* MMU page register address */
+
+/* EQUATIONS */
+/* Onboard LEDs, IO port FFh */
+[LED1..LED0].d = [D1..D0];				    /* 1 = on */
+[LED1..LED0].ck = IORQ & WR & IOADDR:FF;	/* LEDs controlled by writing to port FFh */
+[LED1..LED0].ar = RST;				        /* Set output off at reset */
+
+/* We're just buffering or inverting these things (for now)  */
+RSTo = RST;							/* Inverted reset output */
+BUSACK = BAK;						/* Buffered for a slight delay */
+
+/* MMU: Provides four 16K memory pages which can be mapped to any 16k segment of
+   system memory or ROM. Optionally the page can be write protected.
+   Write to IO ports 40-47h to set page registers. A write to port 48h enables the MMU
+   and it will stay enabled until the system is reset.
+
+   Ports 40 and 41h = page 0, 42 and 43h = page 1, and so on.
+   When A0 = 0, D0 = /ROM, D1 = WP, D6 = A14, D7 = A15
+   When A0 = 1, D0-D7 = A16-A23
+*/
+
+MMUEN.ck = !BAK & IORQ & WR & IOADDR:48;	/* Write to port 48h enables MMU (but only when CPU active) */
+MMUEN.ar = RST;						    /* Disable MMU on reset */
+MMUEN.d = 'b'1;
+MMU = MMUEN & !IORQ;					/* Deactivate MMU for IO requests */
+
+MMUWR = !BAK & IORQ & WR & IOADDR:[40..47];	/* Writing to MMU page registers (40h-47h) */
+
+[ROM3..ROM0].d = D0;
+ROM0.ck = MMUWR & MMUADDR:0;            /* /ROM bit for page 0 (0 = map page to ROM) */
+ROM1.ck = MMUWR & MMUADDR:2;            /* Page 1 */
+ROM2.ck = MMUWR & MMUADDR:4;            /* Page 2 */
+ROM3.ck = MMUWR & MMUADDR:6;            /* Page 3 */
+[WP3..WP0].d = D1;
+WP0.ck = MMUWR & MMUADDR:0;             /* WP bit (1 = write protected) */
+WP1.ck = MMUWR & MMUADDR:2;
+WP2.ck = MMUWR & MMUADDR:4;
+WP3.ck = MMUWR & MMUADDR:6;
+[MA_0_15..MA_0_14].d = [D7..D6];            /* Page 0 A14 and A15 */
+[MA_0_15..MA_0_14].ck = MMUWR & MMUADDR:0;
+[MA_1_15..MA_1_14].d = [D7..D6];            /* Page 1 */
+[MA_1_15..MA_1_14].ck = MMUWR & MMUADDR:2;
+[MA_2_15..MA_2_14].d = [D7..D6];            /* Page 2 */
+[MA_2_15..MA_2_14].ck = MMUWR & MMUADDR:4;
+[MA_3_15..MA_3_14].d = [D7..D6];            /* Page 3 */
+[MA_3_15..MA_3_14].ck = MMUWR & MMUADDR:6;
+[MA_0_23..MA_0_16].d = [D7..D0];            /* Page 0 A16-A23 */
+[MA_0_23..MA_0_16].ck = MMUWR & MMUADDR:1;
+[MA_1_23..MA_1_16].d = [D7..D0];            /* Page 1 */
+[MA_1_23..MA_1_16].ck = MMUWR & MMUADDR:3;
+[MA_2_23..MA_2_16].d = [D7..D0];            /* Page 2 */
+[MA_2_23..MA_2_16].ck = MMUWR & MMUADDR:5;
+[MA_3_23..MA_3_16].d = [D7..D0];            /* Page 3 */
+[MA_3_23..MA_3_16].ck = MMUWR & MMUADDR:7;
+/* MA14 and MA15 = A14 and A15 if MMU is deactivated, otherwise use value from page registers */
+[MA15..14] = (!MMU & [A15..A14]) # (MMU & !A15 & !A14 & [MA_0_15..MA_0_14]) # (MMU & !A15 & A14 & [MA_1_15..MA_1_14]) # (MMU & A15 & !A14 & [MA_2_15..MA_2_14]) # (MMU & A15 & A14 & [MA_3_15..MA_3_14]);
+/* MA16-MA23 are 0 if MMU is deactivated, otherwise use value from page registers */
+[MA23..16] = (MMU & !A15 & !A14 & [MA_0_23..MA_0_16]) # (MMU & !A15 & A14 & [MA_1_23..MA_1_16]) # (MMU & A15 & !A14 & [MA_2_23..MA_2_16]) # (MMU & A15 & A14 & [MA_3_23..MA_3_16]);
+/* Do not drive MA lines if Z80 is not active */
+[MA23..14].oe = !BAK;
+
+ROM = (!A15 & !A14 & !ROM0) # (!A15 & A14 & !ROM1) # (A15 & !A14 & !ROM2) # (A15 & A14 & !ROM3);    /* Current MMU page is mapped to ROM */
+ROM_CS = MREQ & !PHANT & ((!MMU & !A15) # ([MA23..MA19]:0 & MMU & ROM));    /* ROM occupies 0000-7FFF if MMU disabled, otherwise 0-512k when /ROM is 0 */
+RAM_CS = MREQ & !PHANT & ((!MMU & A15) # ([MA23..MA19]:0 & MMU & !ROM));    /* RAM occupies 8000-FFFF if MMU disabled, otherwise 0-512k unless mapped to ROM */
+/* RAM and ROM are both disabled if /PHANT is low. */
+WP = (!A15 & !A14 & WP0) # (!A15 & A14 & WP1) # (A15 & !A14 & WP2) # (A15 & A14 & WP3); /* Current MMU page is write protected */
+WRo = WR & !(MMU & WP);                 /* Don't issue writes if page is write protected */
+
+/* Chip Selects for onboard peripherals */
+PIC_CS = IORQ & IOADDR:[20..21];		/* Interrupt controller at 20h and 21h */
+SPI_CS = IORQ & IOADDR:[10..11];		/* SPI controller at ports 10h-11h */
+CON_CS = IORQ & IOADDR:[00..07];		/* Console/Timer at ports 00-07h */
+UART_CS = IORQ & IOADDR:[50..5F];		/* UART at ports 50-5Fh */
+FLP_CS = IORQ & IOADDR:[30..37];		/* Floppy controller at 30-37h */
+TC = IORQ & WR & IOADDR:[30..31];		/* Strobe TC on write to 30-31h */
+
+/* INTA: The 8259 expects three /INTA pulses, but the Z80 only provides one.
+   The 8259 provides a CALL instruction on the first INTA, so here we are masking
+   off the two /RD pulses that the Z80 will provide after that and send /INTA instead.
+   The 8259 will provide the interrupt vector address on those two INTA pulses.
+   The Z80 will next issue a /WR pulse when it goes to push the PC to the stack and
+   we stop sending /INTA at that point.
+*/
+INTACK.d = 'b'1;
+INTACK.ck = IORQ & M1;				/* Set flip-flop on first INTA */
+INTACK.ar = WR # RST;				/* Reset on first write or system reset */
+INTA = (IORQ & M1) # (INTACK & RD);	/* Continue INTA until first write */
+RDo = RD & !INTACK;					/* Don't issue reads on 2nd and 3rd INTA */

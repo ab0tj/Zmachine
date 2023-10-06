@@ -1,0 +1,1132 @@
+
+*******************************************************************************
+                                    Console
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# 60008009
+Device          f1508ispplcc84  Library DLIB-h-40-2
+Created         Thu Jun 29 21:22:58 2023
+Name            Console 
+Partno          00 
+Revision        01 
+Date            9/16/2022 
+Designer        Engineer 
+Company         AB0TJ 
+Assembly        None 
+Location        
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+ADDR =>
+    A2 , A1 , A0
+
+CON_INT =>
+    CON_INT_EN & CON_RDY
+
+CON_INT_EN.d  =>
+    D0
+
+CON_INT_EN.ar  =>
+    RST
+
+CON_INT_EN.ck  =>
+    A0 & !A1 & !A2 & CON_CS & WR
+
+CON_RDY.d  =>
+    1 
+
+CON_RDY.ar  =>
+    RST
+  # A0 & !A1 & !A2 & CON_CS & RD
+
+CON_RDY.ck  =>
+    IA0 & !IA1 & IWR
+
+CR0.d  =>
+    CON_CS & D0 & WR
+  # IWR & PD0
+
+CR0.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR1.d  =>
+    CON_CS & D1 & WR
+  # IWR & PD1
+
+CR1.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR2.d  =>
+    CON_CS & D2 & WR
+  # IWR & PD2
+
+CR2.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR3.d  =>
+    CON_CS & D3 & WR
+  # IWR & PD3
+
+CR3.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR4.d  =>
+    CON_CS & D4 & WR
+  # IWR & PD4
+
+CR4.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR5.d  =>
+    CON_CS & D5 & WR
+  # IWR & PD5
+
+CR5.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR6.d  =>
+    CON_CS & D6 & WR
+  # IWR & PD6
+
+CR6.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CR7.d  =>
+    CON_CS & D7 & WR
+  # IWR & PD7
+
+CR7.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+  # !IA0 & IA1 & IWR
+
+CRR.d  =>
+    1 
+
+CRR.ar  =>
+    RST
+  # !A0 & A1 & !A2 & CON_CS & RD
+
+CRR.ck  =>
+    !IA0 & IA1 & IWR
+
+CS0.d  =>
+    D0
+
+CS0.ar  =>
+    RST
+
+CS0.ck  =>
+    A0 & SPI_CS & WR
+
+CS1.d  =>
+    D1
+
+CS1.ar  =>
+    RST
+
+CS1.ck  =>
+    A0 & SPI_CS & WR
+
+CS2.d  =>
+    D2
+
+CS2.ar  =>
+    RST
+
+CS2.ck  =>
+    A0 & SPI_CS & WR
+
+CSR.d  =>
+    1 
+
+CSR.ar  =>
+    RST
+  # !IA0 & IA1 & IRD
+
+CSR.ck  =>
+    !A0 & A1 & !A2 & CON_CS & WR
+
+CST0.d  =>
+    PD0
+
+CST0.ck  =>
+    IA0 & !IA1 & IWR
+
+CST1.d  =>
+    PD1
+
+CST1.ck  =>
+    IA0 & !IA1 & IWR
+
+CST2.d  =>
+    PD2
+
+CST2.ck  =>
+    IA0 & !IA1 & IWR
+
+CST3.d  =>
+    PD3
+
+CST3.ck  =>
+    IA0 & !IA1 & IWR
+
+CST4.d  =>
+    PD4
+
+CST4.ck  =>
+    IA0 & !IA1 & IWR
+
+CST5.d  =>
+    PD5
+
+CST5.ck  =>
+    IA0 & !IA1 & IWR
+
+CST6.d  =>
+    PD6
+
+CST6.ck  =>
+    IA0 & !IA1 & IWR
+
+CST7.d  =>
+    PD7
+
+CST7.ck  =>
+    IA0 & !IA1 & IWR
+
+D0 =>
+    !A0 & SPI_CS & SPI_SR1
+  # A0 & SPI_CS & SPI_DRDY0
+  # A0 & SCK_EN & SPI_CS
+  # !A0 & !A1 & !A2 & CON_CS & TST0
+  # A0 & !A1 & !A2 & CON_CS & CST0
+  # !A0 & A1 & !A2 & CON_CS & CR0
+  # !A0 & !A1 & A2 & CON_CS & CRR
+  # A0 & A1 & !A2 & CON_CS & DR0
+
+D0.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D1 =>
+    A0 & CD0 & SPI_CS
+  # !A0 & SPI_CS & SPI_SR2
+  # !A0 & !A1 & !A2 & CON_CS & TST1
+  # A0 & !A1 & !A2 & CON_CS & CST1
+  # !A0 & A1 & !A2 & CON_CS & CR1
+  # !A0 & !A1 & A2 & CON_CS & DRR
+  # A0 & A1 & !A2 & CON_CS & DR1
+
+D1.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D2 =>
+    A0 & CD1 & SPI_CS
+  # !A0 & SPI_CS & SPI_SR3
+  # !A0 & !A1 & !A2 & CON_CS & TST2
+  # A0 & !A1 & !A2 & CON_CS & CST2
+  # !A0 & A1 & !A2 & CON_CS & CR2
+  # !A0 & !A1 & A2 & CON_CS & CSR
+  # A0 & A1 & !A2 & CON_CS & DR2
+
+D2.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D3 =>
+    !A0 & SPI_CS & SPI_SR4
+  # !A0 & !A1 & !A2 & CON_CS & TST3
+  # A0 & !A1 & !A2 & CON_CS & CST3
+  # !A0 & A1 & !A2 & CON_CS & CR3
+  # !A0 & !A1 & A2 & CON_CS & DSR
+  # A0 & A1 & !A2 & CON_CS & DR3
+
+D3.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D4 =>
+    !A0 & SPI_CS & SPI_SR5
+  # !A0 & !A1 & !A2 & CON_CS & TST4
+  # A0 & !A1 & !A2 & CON_CS & CST4
+  # !A0 & A1 & !A2 & CON_CS & CR4
+  # !A0 & !A1 & A2 & CON_CS & CON_RDY
+  # A0 & A1 & !A2 & CON_CS & DR4
+
+D4.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D5 =>
+    A0 & SPI_CS & SPI_INT_EN
+  # !A0 & SPI_CS & SPI_SR6
+  # !A0 & !A1 & !A2 & CON_CS & TST5
+  # A0 & !A1 & !A2 & CON_CS & CST5
+  # !A0 & A1 & !A2 & CON_CS & CR5
+  # !A0 & !A1 & A2 & CON_CS & TMR_RDY
+  # A0 & A1 & !A2 & CON_CS & DR5
+
+D5.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D6 =>
+    A0 & SPI_CS & SPI_INT
+  # !A0 & SPI_CS & SPI_SR7
+  # !A0 & !A1 & !A2 & CON_CS & TST6
+  # A0 & !A1 & !A2 & CON_CS & CST6
+  # A0 & A1 & !A2 & CON_CS & DR6
+  # !A0 & A1 & !A2 & CON_CS & CR6
+
+D6.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+D7 =>
+    A0 & SPI_CLK_SEL & SPI_CS
+  # !A0 & MOSI & SPI_CS
+  # !A0 & !A1 & !A2 & CON_CS & TST7
+  # A0 & !A1 & !A2 & CON_CS & CST7
+  # A0 & A1 & !A2 & CON_CS & DR7
+  # !A0 & A1 & !A2 & CON_CS & CR7
+
+D7.oe  =>
+    RD & SPI_CS
+  # CON_CS & RD
+
+DR0.d  =>
+    CON_CS & D0 & WR
+  # IWR & PD0
+
+DR0.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR1.d  =>
+    CON_CS & D1 & WR
+  # IWR & PD1
+
+DR1.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR2.d  =>
+    CON_CS & D2 & WR
+  # IWR & PD2
+
+DR2.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR3.d  =>
+    CON_CS & D3 & WR
+  # IWR & PD3
+
+DR3.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR4.d  =>
+    CON_CS & D4 & WR
+  # IWR & PD4
+
+DR4.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR5.d  =>
+    CON_CS & D5 & WR
+  # IWR & PD5
+
+DR5.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR6.d  =>
+    CON_CS & D6 & WR
+  # IWR & PD6
+
+DR6.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DR7.d  =>
+    CON_CS & D7 & WR
+  # IWR & PD7
+
+DR7.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+  # IA0 & IA1 & IWR
+
+DRR.d  =>
+    1 
+
+DRR.ar  =>
+    RST
+  # A0 & A1 & !A2 & CON_CS & RD
+
+DRR.ck  =>
+    IA0 & IA1 & IWR
+
+DSR.d  =>
+    1 
+
+DSR.ar  =>
+    RST
+  # IA0 & IA1 & IRD
+
+DSR.ck  =>
+    A0 & A1 & !A2 & CON_CS & WR
+
+IADD =>
+    IA1 , IA0
+
+MOSI.d  =>
+    SPI_SR7
+
+MOSI.ap  =>
+    RST
+
+MOSI.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+PD0 =>
+    CRR & !IA0 & !IA1
+  # CR0 & !IA0 & IA1
+  # DR0 & IA0 & IA1
+
+PD0.oe  =>
+    IRD
+
+PD1 =>
+    DRR & !IA0 & !IA1
+  # CR1 & !IA0 & IA1
+  # DR1 & IA0 & IA1
+
+PD1.oe  =>
+    IRD
+
+PD2 =>
+    CSR & !IA0 & !IA1
+  # CR2 & !IA0 & IA1
+  # DR2 & IA0 & IA1
+
+PD2.oe  =>
+    IRD
+
+PD3 =>
+    DSR & !IA0 & !IA1
+  # CR3 & !IA0 & IA1
+  # DR3 & IA0 & IA1
+
+PD3.oe  =>
+    IRD
+
+PD4 =>
+    CON_INT & !IA0 & !IA1
+  # CR4 & !IA0 & IA1
+  # DR4 & IA0 & IA1
+
+PD4.oe  =>
+    IRD
+
+PD5 =>
+    !IA0 & !IA1 & TMR_INT
+  # CR5 & !IA0 & IA1
+  # DR5 & IA0 & IA1
+
+PD5.oe  =>
+    IRD
+
+PD6 =>
+    CR6 & !IA0 & IA1
+  # DR6 & IA0 & IA1
+
+PD6.oe  =>
+    IRD
+
+PD7 =>
+    CR7 & !IA0 & IA1
+  # DR7 & IA0 & IA1
+
+PD7.oe  =>
+    IRD
+
+SCK =>
+    SCK_EN & SPI_CLK_DIV5 & !SPI_CLK_SEL
+  # CLK_IN & SCK_EN & SPI_CLK_SEL
+
+SCK_EN.d  =>
+    !SPI_CNT3 & SPI_DRDY1
+
+SCK_EN.ck  =>
+    !CLK_IN & SPI_CLK_SEL
+  # !SPI_CLK_DIV5 & !SPI_CLK_SEL
+  # !CLK_IN & !SPI_CLK_DIV5
+
+SCT2 =>
+    SPI_CNT0 & SPI_CNT1
+
+SCT3 =>
+    SPI_CNT0 & SPI_CNT1 & SPI_CNT2
+
+SPI_CLK =>
+    CLK_IN & SPI_CLK_SEL
+  # SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_CLK_DIV0.t  =>
+    1 
+
+SPI_CLK_DIV0.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV1.t  =>
+    SPI_CLK_DIV0
+
+SPI_CLK_DIV1.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV2.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1
+
+SPI_CLK_DIV2.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV3.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2
+
+SPI_CLK_DIV3.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV4.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3
+
+SPI_CLK_DIV4.ckmux  =>
+    CLK_IN
+
+SPI_CLK_DIV5.t  =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3 & SPI_CLK_DIV4
+
+SPI_CLK_DIV5.ckmux  =>
+    CLK_IN
+
+SPI_CLK_SEL.d  =>
+    D7
+
+SPI_CLK_SEL.ar  =>
+    RST
+
+SPI_CLK_SEL.ck  =>
+    A0 & SPI_CS & WR
+
+SPI_CNT0.t  =>
+    1 
+
+SPI_CNT0.ap  =>
+    RST
+
+SPI_CNT0.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT0.ck  =>
+    SCK
+
+SPI_CNT1.t  =>
+    SPI_CNT0
+
+SPI_CNT1.ap  =>
+    RST
+
+SPI_CNT1.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT1.ck  =>
+    SCK
+
+SPI_CNT2.t  =>
+    SPI_CNT0 & SPI_CNT1
+
+SPI_CNT2.ap  =>
+    RST
+
+SPI_CNT2.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT2.ck  =>
+    SCK
+
+SPI_CNT3.t  =>
+    SPI_CNT0 & SPI_CNT1 & SPI_CNT2
+
+SPI_CNT3.ap  =>
+    RST
+
+SPI_CNT3.ar  =>
+    !A0 & SPI_CS & WR
+
+SPI_CNT3.ck  =>
+    SCK
+
+SPI_DRDY0.d  =>
+    1 
+
+SPI_DRDY0.ar  =>
+    RST
+  # SCK_EN & SPI_CNT3
+
+SPI_DRDY0.ck  =>
+    !SPI_CS
+  # A0
+  # !WR
+
+SPI_DRDY1.d  =>
+    SPI_DRDY0
+
+SPI_DRDY1.ck  =>
+    CLK_IN & SPI_CLK_SEL
+  # SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_DWR =>
+    !A0 & SPI_CS & WR
+
+SPI_INT.d  =>
+    SPI_INT_EN
+
+SPI_INT.ar  =>
+    !A0 & RD & SPI_CS
+  # !A0 & SPI_CS & WR
+
+SPI_INT.ck  =>
+    !SCK_EN & SPI_CNT3
+
+SPI_INT_EN.d  =>
+    D5
+
+SPI_INT_EN.ar  =>
+    RST
+
+SPI_INT_EN.ck  =>
+    A0 & SPI_CS & WR
+
+SPI_SR0.d  =>
+    MISO & SCK_EN
+  # D0 & !SCK_EN
+
+SPI_SR0.ap  =>
+    RST
+
+SPI_SR0.ck  =>
+    SCK
+  # !A0 & SPI_CS & WR
+
+SPI_SR1.d  =>
+    SCK_EN & SPI_SR0
+  # D1 & !SCK_EN
+
+SPI_SR1.ap  =>
+    RST
+
+SPI_SR1.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR2.d  =>
+    SCK_EN & SPI_SR1
+  # D2 & !SCK_EN
+
+SPI_SR2.ap  =>
+    RST
+
+SPI_SR2.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR3.d  =>
+    SCK_EN & SPI_SR2
+  # D3 & !SCK_EN
+
+SPI_SR3.ap  =>
+    RST
+
+SPI_SR3.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR4.d  =>
+    SCK_EN & SPI_SR3
+  # D4 & !SCK_EN
+
+SPI_SR4.ap  =>
+    RST
+
+SPI_SR4.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR5.d  =>
+    SCK_EN & SPI_SR4
+  # D5 & !SCK_EN
+
+SPI_SR5.ap  =>
+    RST
+
+SPI_SR5.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR6.d  =>
+    SCK_EN & SPI_SR5
+  # D6 & !SCK_EN
+
+SPI_SR6.ap  =>
+    RST
+
+SPI_SR6.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR7.d  =>
+    SCK_EN & SPI_SR6
+  # D7 & !SCK_EN
+
+SPI_SR7.ap  =>
+    RST
+
+SPI_SR7.ck  =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SRCK =>
+    !A0 & SPI_CS & WR
+  # !CLK_IN & SCK_EN & SPI_CLK_SEL
+  # !CLK_IN & SCK_EN & !SPI_CLK_DIV5
+  # SCK_EN & !SPI_CLK_DIV5 & !SPI_CLK_SEL
+
+SPI_SR_SEL =>
+    !A0 & SPI_CS
+
+ST2 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1
+
+ST3 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2
+
+ST4 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3
+
+ST5 =>
+    SPI_CLK_DIV0 & SPI_CLK_DIV1 & SPI_CLK_DIV2 & SPI_CLK_DIV3 & SPI_CLK_DIV4
+
+TMR_INT =>
+    TMR_INT_EN & TMR_RDY
+
+TMR_INT_EN.d  =>
+    D0
+
+TMR_INT_EN.ar  =>
+    RST
+
+TMR_INT_EN.ck  =>
+    !A0 & !A1 & !A2 & CON_CS & WR
+
+TMR_RDY.d  =>
+    1 
+
+TMR_RDY.ar  =>
+    RST
+  # !A0 & !A1 & !A2 & CON_CS & RD
+
+TMR_RDY.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST0.d  =>
+    PD0
+
+TST0.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST1.d  =>
+    PD1
+
+TST1.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST2.d  =>
+    PD2
+
+TST2.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST3.d  =>
+    PD3
+
+TST3.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST4.d  =>
+    PD4
+
+TST4.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST5.d  =>
+    PD5
+
+TST5.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST6.d  =>
+    PD6
+
+TST6.ck  =>
+    !IA0 & !IA1 & IWR
+
+TST7.d  =>
+    PD7
+
+TST7.ck  =>
+    !IA0 & !IA1 & IWR
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    A0                          17       V        -       -       -     
+    A1                          16       V        -       -       -     
+    A2                          15       V        -       -       -     
+    ADDR                        0        F        -       -       -     
+    CD0                         73       V        -       -       -     
+    CD1                         70       V        -       -       -     
+    CLK_IN                      81       V        -       -       -     
+ !  CON_CS                      39       V        -       -       -     
+ !  CON_INT                     60       V        1       0       1     
+    CON_INT_EN                  123      N        -       -       -     
+    CON_INT_EN          d       123      M        1       0       1     
+    CON_INT_EN          ar      123      M        1       0       1     
+    CON_INT_EN          ck      123      M        1       0       1     
+    CON_RDY                     124      N        -       -       -     
+    CON_RDY             d       124      M        1       0       1     
+    CON_RDY             ar      124      M        2       0       1     
+    CON_RDY             ck      124      M        1       0       1     
+    CR0                         96       N        -       -       -     
+    CR0                 d       96       M        2       0       1     
+    CR0                 ck      96       M        2       0       1     
+    CR1                         95       N        -       -       -     
+    CR1                 d       95       M        2       0       1     
+    CR1                 ck      95       M        2       0       1     
+    CR2                         94       N        -       -       -     
+    CR2                 d       94       M        2       0       1     
+    CR2                 ck      94       M        2       0       1     
+    CR3                         93       N        -       -       -     
+    CR3                 d       93       M        2       0       1     
+    CR3                 ck      93       M        2       0       1     
+    CR4                         92       N        -       -       -     
+    CR4                 d       92       M        2       0       1     
+    CR4                 ck      92       M        2       0       1     
+    CR5                         91       N        -       -       -     
+    CR5                 d       91       M        2       0       1     
+    CR5                 ck      91       M        2       0       1     
+    CR6                         90       N        -       -       -     
+    CR6                 d       90       M        2       0       1     
+    CR6                 ck      90       M        2       0       1     
+    CR7                         89       N        -       -       -     
+    CR7                 d       89       M        2       0       1     
+    CR7                 ck      89       M        2       0       1     
+    CRR                         85       N        -       -       -     
+    CRR                 d       85       M        1       0       1     
+    CRR                 ar      85       M        2       0       1     
+    CRR                 ck      85       M        1       0       1     
+ !  CS0                         76       V        -       -       -     
+ !  CS0                 d       76       X        1       0       1     
+    CS0                 ar      76       X        1       0       1     
+    CS0                 ck      76       X        1       0       1     
+ !  CS1                         75       V        -       -       -     
+ !  CS1                 d       75       X        1       0       1     
+    CS1                 ar      75       X        1       0       1     
+    CS1                 ck      75       X        1       0       1     
+ !  CS2                         74       V        -       -       -     
+ !  CS2                 d       74       X        1       0       1     
+    CS2                 ar      74       X        1       0       1     
+    CS2                 ck      74       X        1       0       1     
+    CSR                         87       N        -       -       -     
+    CSR                 d       87       M        1       0       1     
+    CSR                 ar      87       M        2       0       1     
+    CSR                 ck      87       M        1       0       1     
+    CST0                        112      N        -       -       -     
+    CST0                d       112      M        1       0       1     
+    CST0                ck      112      M        1       0       1     
+    CST1                        111      N        -       -       -     
+    CST1                d       111      M        1       0       1     
+    CST1                ck      111      M        1       0       1     
+    CST2                        110      N        -       -       -     
+    CST2                d       110      M        1       0       1     
+    CST2                ck      110      M        1       0       1     
+    CST3                        109      N        -       -       -     
+    CST3                d       109      M        1       0       1     
+    CST3                ck      109      M        1       0       1     
+    CST4                        108      N        -       -       -     
+    CST4                d       108      M        1       0       1     
+    CST4                ck      108      M        1       0       1     
+    CST5                        107      N        -       -       -     
+    CST5                d       107      M        1       0       1     
+    CST5                ck      107      M        1       0       1     
+    CST6                        106      N        -       -       -     
+    CST6                d       106      M        1       0       1     
+    CST6                ck      106      M        1       0       1     
+    CST7                        105      N        -       -       -     
+    CST7                d       105      M        1       0       1     
+    CST7                ck      105      M        1       0       1     
+    D0                          12       V        8       0       1     
+    D0                  oe      12       X        2       0       1     
+    D1                          11       V        7       0       1     
+    D1                  oe      11       X        2       0       1     
+    D2                          10       V        7       0       1     
+    D2                  oe      10       X        2       0       1     
+    D3                          9        V        6       0       1     
+    D3                  oe      9        X        2       0       1     
+    D4                          8        V        6       0       1     
+    D4                  oe      8        X        2       0       1     
+    D5                          6        V        7       0       1     
+    D5                  oe      6        X        2       0       1     
+    D6                          5        V        6       0       1     
+    D6                  oe      5        X        2       0       1     
+    D7                          4        V        6       0       1     
+    D7                  oe      4        X        2       0       1     
+    DR0                         104      N        -       -       -     
+    DR0                 d       104      M        2       0       1     
+    DR0                 ck      104      M        2       0       1     
+    DR1                         103      N        -       -       -     
+    DR1                 d       103      M        2       0       1     
+    DR1                 ck      103      M        2       0       1     
+    DR2                         102      N        -       -       -     
+    DR2                 d       102      M        2       0       1     
+    DR2                 ck      102      M        2       0       1     
+    DR3                         101      N        -       -       -     
+    DR3                 d       101      M        2       0       1     
+    DR3                 ck      101      M        2       0       1     
+    DR4                         100      N        -       -       -     
+    DR4                 d       100      M        2       0       1     
+    DR4                 ck      100      M        2       0       1     
+    DR5                         99       N        -       -       -     
+    DR5                 d       99       M        2       0       1     
+    DR5                 ck      99       M        2       0       1     
+    DR6                         98       N        -       -       -     
+    DR6                 d       98       M        2       0       1     
+    DR6                 ck      98       M        2       0       1     
+    DR7                         97       N        -       -       -     
+    DR7                 d       97       M        2       0       1     
+    DR7                 ck      97       M        2       0       1     
+    DRR                         86       N        -       -       -     
+    DRR                 d       86       M        1       0       1     
+    DRR                 ar      86       M        2       0       1     
+    DRR                 ck      86       M        1       0       1     
+    DSR                         88       N        -       -       -     
+    DSR                 d       88       M        1       0       1     
+    DSR                 ar      88       M        2       0       1     
+    DSR                 ck      88       M        1       0       1     
+    IA0                         55       V        -       -       -     
+    IA1                         54       V        -       -       -     
+    IADD                        0        F        -       -       -     
+ !  IRD                         84       V        -       -       -     
+ !  IWR                         83       V        -       -       -     
+    MISO                        79       V        -       -       -     
+    MOSI                        80       V        -       -       -     
+    MOSI                d       80       X        1       0       1     
+    MOSI                ap      80       X        1       0       1     
+    MOSI                ck      80       X        4       0       1     
+    PD0                         57       V        3       0       1     
+    PD0                 oe      57       X        1       0       1     
+    PD1                         56       V        3       0       1     
+    PD1                 oe      56       X        1       0       1     
+    PD2                         52       V        3       0       1     
+    PD2                 oe      52       X        1       0       1     
+    PD3                         51       V        3       0       1     
+    PD3                 oe      51       X        1       0       1     
+    PD4                         50       V        3       0       1     
+    PD4                 oe      50       X        1       0       1     
+    PD5                         49       V        3       0       1     
+    PD5                 oe      49       X        1       0       1     
+    PD6                         48       V        2       0       1     
+    PD6                 oe      48       X        1       0       1     
+    PD7                         46       V        2       0       1     
+    PD7                 oe      46       X        1       0       1     
+ !  RD                          2        V        -       -       -     
+ !  RST                         1        V        -       -       -     
+    SCK                         77       V        2       0       1     
+    SCK_EN                      144      N        -       -       -     
+    SCK_EN              d       144      M        1       0       1     
+    SCK_EN              ck      144      M        3       0       1     
+    SCT2                        0        I        1       -       -     
+    SCT3                        0        I        1       -       -     
+    SP10                        63       V        -       -       -     
+    SPI_CLK                     0        I        2       -       -     
+    SPI_CLK_DIV0                142      N        -       -       -     
+    SPI_CLK_DIV0        t       142      M        1       0       1     
+    SPI_CLK_DIV0        ckmux   142      M        1       0       1     
+    SPI_CLK_DIV1                141      N        -       -       -     
+    SPI_CLK_DIV1        t       141      M        1       0       1     
+    SPI_CLK_DIV1        ckmux   141      M        1       0       1     
+    SPI_CLK_DIV2                140      N        -       -       -     
+    SPI_CLK_DIV2        t       140      M        1       0       1     
+    SPI_CLK_DIV2        ckmux   140      M        1       0       1     
+    SPI_CLK_DIV3                139      N        -       -       -     
+    SPI_CLK_DIV3        t       139      M        1       0       1     
+    SPI_CLK_DIV3        ckmux   139      M        1       0       1     
+    SPI_CLK_DIV4                138      N        -       -       -     
+    SPI_CLK_DIV4        t       138      M        1       0       1     
+    SPI_CLK_DIV4        ckmux   138      M        1       0       1     
+    SPI_CLK_DIV5                137      N        -       -       -     
+    SPI_CLK_DIV5        t       137      M        1       0       1     
+    SPI_CLK_DIV5        ckmux   137      M        1       0       1     
+    SPI_CLK_SEL                 143      N        -       -       -     
+    SPI_CLK_SEL         d       143      M        1       0       1     
+    SPI_CLK_SEL         ar      143      M        1       0       1     
+    SPI_CLK_SEL         ck      143      M        1       0       1     
+    SPI_CNT0                    136      N        -       -       -     
+    SPI_CNT0            t       136      M        1       0       1     
+    SPI_CNT0            ap      136      M        1       0       1     
+    SPI_CNT0            ar      136      M        1       0       1     
+    SPI_CNT0            ck      136      M        1       0       1     
+    SPI_CNT1                    135      N        -       -       -     
+    SPI_CNT1            t       135      M        1       0       1     
+    SPI_CNT1            ap      135      M        1       0       1     
+    SPI_CNT1            ar      135      M        1       0       1     
+    SPI_CNT1            ck      135      M        1       0       1     
+    SPI_CNT2                    134      N        -       -       -     
+    SPI_CNT2            t       134      M        1       0       1     
+    SPI_CNT2            ap      134      M        1       0       1     
+    SPI_CNT2            ar      134      M        1       0       1     
+    SPI_CNT2            ck      134      M        1       0       1     
+    SPI_CNT3                    133      N        -       -       -     
+    SPI_CNT3            t       133      M        1       0       1     
+    SPI_CNT3            ap      133      M        1       0       1     
+    SPI_CNT3            ar      133      M        1       0       1     
+    SPI_CNT3            ck      133      M        1       0       1     
+ !  SPI_CS                      40       V        -       -       -     
+    SPI_DRDY0                   147      N        -       -       -     
+    SPI_DRDY0           d       147      M        1       0       1     
+    SPI_DRDY0           ar      147      M        2       0       1     
+    SPI_DRDY0           ck      147      M        3       0       1     
+    SPI_DRDY1                   146      N        -       -       -     
+    SPI_DRDY1           d       146      M        1       0       1     
+    SPI_DRDY1           ck      146      M        2       0       1     
+    SPI_DWR                     0        I        1       -       -     
+ !  SPI_INT                     58       V        -       -       -     
+ !  SPI_INT             d       58       X        1       0       1     
+    SPI_INT             ar      58       X        2       0       1     
+    SPI_INT             ck      58       X        1       0       1     
+    SPI_INT_EN                  145      N        -       -       -     
+    SPI_INT_EN          d       145      M        1       0       1     
+    SPI_INT_EN          ar      145      M        1       0       1     
+    SPI_INT_EN          ck      145      M        1       0       1     
+    SPI_SR0                     132      N        -       -       -     
+    SPI_SR0             d       132      M        2       0       1     
+    SPI_SR0             ap      132      M        1       0       1     
+    SPI_SR0             ck      132      M        2       0       1     
+    SPI_SR1                     131      N        -       -       -     
+    SPI_SR1             d       131      M        2       0       1     
+    SPI_SR1             ap      131      M        1       0       1     
+    SPI_SR1             ck      131      M        4       0       1     
+    SPI_SR2                     130      N        -       -       -     
+    SPI_SR2             d       130      M        2       0       1     
+    SPI_SR2             ap      130      M        1       0       1     
+    SPI_SR2             ck      130      M        4       0       1     
+    SPI_SR3                     129      N        -       -       -     
+    SPI_SR3             d       129      M        2       0       1     
+    SPI_SR3             ap      129      M        1       0       1     
+    SPI_SR3             ck      129      M        4       0       1     
+    SPI_SR4                     128      N        -       -       -     
+    SPI_SR4             d       128      M        2       0       1     
+    SPI_SR4             ap      128      M        1       0       1     
+    SPI_SR4             ck      128      M        4       0       1     
+    SPI_SR5                     127      N        -       -       -     
+    SPI_SR5             d       127      M        2       0       1     
+    SPI_SR5             ap      127      M        1       0       1     
+    SPI_SR5             ck      127      M        4       0       1     
+    SPI_SR6                     126      N        -       -       -     
+    SPI_SR6             d       126      M        2       0       1     
+    SPI_SR6             ap      126      M        1       0       1     
+    SPI_SR6             ck      126      M        4       0       1     
+    SPI_SR7                     125      N        -       -       -     
+    SPI_SR7             d       125      M        2       0       1     
+    SPI_SR7             ap      125      M        1       0       1     
+    SPI_SR7             ck      125      M        4       0       1     
+    SPI_SRCK                    0        I        4       -       -     
+    SPI_SR_SEL                  0        I        1       -       -     
+    ST2                         0        I        1       -       -     
+    ST3                         0        I        1       -       -     
+    ST4                         0        I        1       -       -     
+    ST5                         0        I        1       -       -     
+ !  TMR_INT                     61       V        1       0       1     
+    TMR_INT_EN                  121      N        -       -       -     
+    TMR_INT_EN          d       121      M        1       0       1     
+    TMR_INT_EN          ar      121      M        1       0       1     
+    TMR_INT_EN          ck      121      M        1       0       1     
+    TMR_RDY                     122      N        -       -       -     
+    TMR_RDY             d       122      M        1       0       1     
+    TMR_RDY             ar      122      M        2       0       1     
+    TMR_RDY             ck      122      M        1       0       1     
+    TST0                        120      N        -       -       -     
+    TST0                d       120      M        1       0       1     
+    TST0                ck      120      M        1       0       1     
+    TST1                        119      N        -       -       -     
+    TST1                d       119      M        1       0       1     
+    TST1                ck      119      M        1       0       1     
+    TST2                        118      N        -       -       -     
+    TST2                d       118      M        1       0       1     
+    TST2                ck      118      M        1       0       1     
+    TST3                        117      N        -       -       -     
+    TST3                d       117      M        1       0       1     
+    TST3                ck      117      M        1       0       1     
+    TST4                        116      N        -       -       -     
+    TST4                d       116      M        1       0       1     
+    TST4                ck      116      M        1       0       1     
+    TST5                        115      N        -       -       -     
+    TST5                d       115      M        1       0       1     
+    TST5                ck      115      M        1       0       1     
+    TST6                        114      N        -       -       -     
+    TST6                d       114      M        1       0       1     
+    TST6                ck      114      M        1       0       1     
+    TST7                        113      N        -       -       -     
+    TST7                d       113      M        1       0       1     
+    TST7                ck      113      M        1       0       1     
+ !  WR                          41       V        -       -       -     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+

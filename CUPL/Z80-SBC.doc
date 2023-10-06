@@ -1,0 +1,783 @@
+
+*******************************************************************************
+                                    Z80-SBC
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# 60008009
+Device          f1508ispplcc84  Library DLIB-h-40-2
+Created         Fri Sep 29 20:17:35 2023
+Name            Z80-SBC 
+Partno          U31 
+Revision        01 
+Date            7/8/2021 
+Designer        Engineer 
+Company         AB0TJ 
+Assembly        None 
+Location        
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+BUSACK =>
+    BAK
+
+CON_CS =>
+    !A3 & !A4 & !A5 & !A6 & !A7 & IORQ
+
+FLP_CS =>
+    !A3 & A4 & A5 & !A6 & !A7 & IORQ
+
+INTA =>
+    IORQ & M1
+  # INTACK & RD
+
+INTACK.d  =>
+    1 
+
+INTACK.ar  =>
+    WR
+  # RST
+
+INTACK.ck  =>
+    IORQ & M1
+
+IOADDR =>
+    A7 , A6 , A5 , A4 , A3 , A2 , A1 , A0
+
+LED0.d  =>
+    D0
+
+LED0.ar  =>
+    RST
+
+LED0.ck  =>
+    A0 & A1 & A2 & A3 & A4 & A5 & A6 & A7 & IORQ & WR
+
+LED1.d  =>
+    D1
+
+LED1.ar  =>
+    RST
+
+LED1.ck  =>
+    A0 & A1 & A2 & A3 & A4 & A5 & A6 & A7 & IORQ & WR
+
+MA14 =>
+    A14 & !MMU
+  # !A14 & !A15 & MA_0_14 & MMU
+  # A14 & !A15 & MA_1_14 & MMU
+  # !A14 & A15 & MA_2_14 & MMU
+  # A14 & A15 & MA_3_14 & MMU
+
+MA14.oe  =>
+    !BAK
+
+MA15 =>
+    A15 & !MMU
+  # !A14 & !A15 & MA_0_15 & MMU
+  # A14 & !A15 & MA_1_15 & MMU
+  # !A14 & A15 & MA_2_15 & MMU
+  # A14 & A15 & MA_3_15 & MMU
+
+MA15.oe  =>
+    !BAK
+
+MA16 =>
+    !A14 & !A15 & MA_0_16 & MMU
+  # A14 & !A15 & MA_1_16 & MMU
+  # !A14 & A15 & MA_2_16 & MMU
+  # A14 & A15 & MA_3_16 & MMU
+
+MA16.oe  =>
+    !BAK
+
+MA17 =>
+    !A14 & !A15 & MA_0_17 & MMU
+  # A14 & !A15 & MA_1_17 & MMU
+  # !A14 & A15 & MA_2_17 & MMU
+  # A14 & A15 & MA_3_17 & MMU
+
+MA17.oe  =>
+    !BAK
+
+MA18 =>
+    !A14 & !A15 & MA_0_18 & MMU
+  # A14 & !A15 & MA_1_18 & MMU
+  # !A14 & A15 & MA_2_18 & MMU
+  # A14 & A15 & MA_3_18 & MMU
+
+MA18.oe  =>
+    !BAK
+
+MA19 =>
+    !A14 & !A15 & MA_0_19 & MMU
+  # A14 & !A15 & MA_1_19 & MMU
+  # !A14 & A15 & MA_2_19 & MMU
+  # A14 & A15 & MA_3_19 & MMU
+
+MA19.oe  =>
+    !BAK
+
+MA20 =>
+    !A14 & !A15 & MA_0_20 & MMU
+  # A14 & !A15 & MA_1_20 & MMU
+  # !A14 & A15 & MA_2_20 & MMU
+  # A14 & A15 & MA_3_20 & MMU
+
+MA20.oe  =>
+    !BAK
+
+MA21 =>
+    !A14 & !A15 & MA_0_21 & MMU
+  # A14 & !A15 & MA_1_21 & MMU
+  # !A14 & A15 & MA_2_21 & MMU
+  # A14 & A15 & MA_3_21 & MMU
+
+MA21.oe  =>
+    !BAK
+
+MA22 =>
+    !A14 & !A15 & MA_0_22 & MMU
+  # A14 & !A15 & MA_1_22 & MMU
+  # !A14 & A15 & MA_2_22 & MMU
+  # A14 & A15 & MA_3_22 & MMU
+
+MA22.oe  =>
+    !BAK
+
+MA23 =>
+    !A14 & !A15 & MA_0_23 & MMU
+  # A14 & !A15 & MA_1_23 & MMU
+  # !A14 & A15 & MA_2_23 & MMU
+  # A14 & A15 & MA_3_23 & MMU
+
+MA23.oe  =>
+    !BAK
+
+MA_0_14.d  =>
+    D6
+
+MA_0_14.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_15.d  =>
+    D7
+
+MA_0_15.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_16.d  =>
+    D0
+
+MA_0_16.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_17.d  =>
+    D1
+
+MA_0_17.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_18.d  =>
+    D2
+
+MA_0_18.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_19.d  =>
+    D3
+
+MA_0_19.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_20.d  =>
+    D4
+
+MA_0_20.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_21.d  =>
+    D5
+
+MA_0_21.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_22.d  =>
+    D6
+
+MA_0_22.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_23.d  =>
+    D7
+
+MA_0_23.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_14.d  =>
+    D6
+
+MA_1_14.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_15.d  =>
+    D7
+
+MA_1_15.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_16.d  =>
+    D0
+
+MA_1_16.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_17.d  =>
+    D1
+
+MA_1_17.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_18.d  =>
+    D2
+
+MA_1_18.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_19.d  =>
+    D3
+
+MA_1_19.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_20.d  =>
+    D4
+
+MA_1_20.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_21.d  =>
+    D5
+
+MA_1_21.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_22.d  =>
+    D6
+
+MA_1_22.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_23.d  =>
+    D7
+
+MA_1_23.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_14.d  =>
+    D6
+
+MA_2_14.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_15.d  =>
+    D7
+
+MA_2_15.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_16.d  =>
+    D0
+
+MA_2_16.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_17.d  =>
+    D1
+
+MA_2_17.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_18.d  =>
+    D2
+
+MA_2_18.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_19.d  =>
+    D3
+
+MA_2_19.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_20.d  =>
+    D4
+
+MA_2_20.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_21.d  =>
+    D5
+
+MA_2_21.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_22.d  =>
+    D6
+
+MA_2_22.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_23.d  =>
+    D7
+
+MA_2_23.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_14.d  =>
+    D6
+
+MA_3_14.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_15.d  =>
+    D7
+
+MA_3_15.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_16.d  =>
+    D0
+
+MA_3_16.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_17.d  =>
+    D1
+
+MA_3_17.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_18.d  =>
+    D2
+
+MA_3_18.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_19.d  =>
+    D3
+
+MA_3_19.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_20.d  =>
+    D4
+
+MA_3_20.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_21.d  =>
+    D5
+
+MA_3_21.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_22.d  =>
+    D6
+
+MA_3_22.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_23.d  =>
+    D7
+
+MA_3_23.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MMU =>
+    !IORQ & MMUEN
+
+MMUADDR =>
+    A2 , A1 , A0
+
+MMUEN.d  =>
+    1 
+
+MMUEN.ar  =>
+    RST
+
+MMUEN.ck  =>
+    !A0 & !A1 & !A2 & A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MMUWR =>
+    !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+PIC_CS =>
+    !A1 & !A2 & !A3 & !A4 & A5 & !A6 & !A7 & IORQ
+
+RAM_CS =>
+    A15 & !MMU & MREQ & !PHANT
+  # !A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      ROM0
+  # A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      ROM1
+  # !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0 & 
+      ROM1
+  # !A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      ROM2
+  # !A14 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0 & 
+      ROM2
+  # A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM2 & 
+      ROM3
+  # !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0 & ROM1 & 
+      ROM2 & ROM3
+  # A14 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM1 & 
+      ROM3
+  # A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      ROM3
+
+RDo =>
+    !INTACK & RD
+
+ROM =>
+    !A14 & !A15 & !ROM0
+  # A14 & !A15 & !ROM1
+  # !A14 & A15 & !ROM2
+  # A14 & A15 & !ROM3
+
+ROM0.d  =>
+    D0
+
+ROM0.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM1.d  =>
+    D0
+
+ROM1.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM2.d  =>
+    D0
+
+ROM2.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM3.d  =>
+    D0
+
+ROM3.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM_CS =>
+    !A15 & !MMU & MREQ & !PHANT
+  # !A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      !ROM0
+  # A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      !ROM1
+  # !A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      !ROM2
+  # A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & 
+      !ROM3
+
+RSTo =>
+    RST
+
+SPI_CS =>
+    !A1 & !A2 & !A3 & A4 & !A5 & !A6 & !A7 & IORQ
+
+TC =>
+    !A1 & !A2 & !A3 & A4 & A5 & !A6 & !A7 & IORQ & WR
+
+UART_CS =>
+    A4 & !A5 & A6 & !A7 & IORQ
+
+WP =>
+    !A14 & !A15 & WP0
+  # A14 & !A15 & WP1
+  # !A14 & A15 & WP2
+  # A14 & A15 & WP3
+
+WP0.d  =>
+    D1
+
+WP0.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WP1.d  =>
+    D1
+
+WP1.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WP2.d  =>
+    D1
+
+WP2.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WP3.d  =>
+    D1
+
+WP3.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WRo =>
+    !MMU & WR
+  # !A14 & !A15 & !WP0 & WR
+  # A14 & !A15 & !WP1 & WR
+  # !A15 & !WP0 & !WP1 & WR
+  # !A14 & A15 & !WP2 & WR
+  # !A14 & !WP0 & !WP2 & WR
+  # A15 & !WP2 & !WP3 & WR
+  # !WP0 & !WP1 & !WP2 & !WP3 & WR
+  # A14 & A15 & !WP3 & WR
+  # A14 & !WP1 & !WP3 & WR
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    A0                          44       V        -       -       -     
+    A1                          45       V        -       -       -     
+    A2                          46       V        -       -       -     
+    A3                          48       V        -       -       -     
+    A4                          49       V        -       -       -     
+    A5                          50       V        -       -       -     
+    A6                          51       V        -       -       -     
+    A7                          52       V        -       -       -     
+    A14                         20       V        -       -       -     
+    A15                         21       V        -       -       -     
+ !  BAK                         39       V        -       -       -     
+ !  BUSACK                      24       V        1       0       1     
+ !  CON_CS                      33       V        1       0       1     
+    D0                          16       V        -       -       -     
+    D1                          15       V        -       -       -     
+    D2                          12       V        -       -       -     
+    D3                          11       V        -       -       -     
+    D4                          10       V        -       -       -     
+    D5                          9        V        -       -       -     
+    D6                          8        V        -       -       -     
+    D7                          6        V        -       -       -     
+ !  FLP_CS                      60       V        1       0       1     
+    INT                         75       V        -       -       -     
+ !  INTA                        30       V        2       0       1     
+    INTACK                      85       N        -       -       -     
+    INTACK              d       85       M        1       0       1     
+    INTACK              ar      85       M        2       0       1     
+    INTACK              ck      85       M        1       0       1     
+    IOADDR                      0        F        -       -       -     
+ !  IORQ                        41       V        -       -       -     
+ !  LED0                        54       V        -       -       -     
+ !  LED0                d       54       X        1       0       1     
+    LED0                ar      54       X        1       0       1     
+    LED0                ck      54       X        1       0       1     
+ !  LED1                        55       V        -       -       -     
+ !  LED1                d       55       X        1       0       1     
+    LED1                ar      55       X        1       0       1     
+    LED1                ck      55       X        1       0       1     
+ !  M1                          40       V        -       -       -     
+    MA14                        61       V        5       0       1     
+    MA14                oe      61       X        1       0       1     
+    MA15                        63       V        5       0       1     
+    MA15                oe      63       X        1       0       1     
+    MA16                        64       V        4       0       1     
+    MA16                oe      64       X        1       0       1     
+    MA17                        65       V        4       0       1     
+    MA17                oe      65       X        1       0       1     
+    MA18                        67       V        4       0       1     
+    MA18                oe      67       X        1       0       1     
+    MA19                        68       V        4       0       1     
+    MA19                oe      68       X        1       0       1     
+    MA20                        69       V        4       0       1     
+    MA20                oe      69       X        1       0       1     
+    MA21                        70       V        4       0       1     
+    MA21                oe      70       X        1       0       1     
+    MA22                        73       V        4       0       1     
+    MA22                oe      73       X        1       0       1     
+    MA23                        74       V        4       0       1     
+    MA23                oe      74       X        1       0       1     
+    MA_0_14                     106      N        -       -       -     
+    MA_0_14             d       106      M        1       0       1     
+    MA_0_14             ck      106      M        1       0       1     
+    MA_0_15                     105      N        -       -       -     
+    MA_0_15             d       105      M        1       0       1     
+    MA_0_15             ck      105      M        1       0       1     
+    MA_0_16                     104      N        -       -       -     
+    MA_0_16             d       104      M        1       0       1     
+    MA_0_16             ck      104      M        1       0       1     
+    MA_0_17                     103      N        -       -       -     
+    MA_0_17             d       103      M        1       0       1     
+    MA_0_17             ck      103      M        1       0       1     
+    MA_0_18                     102      N        -       -       -     
+    MA_0_18             d       102      M        1       0       1     
+    MA_0_18             ck      102      M        1       0       1     
+    MA_0_19                     101      N        -       -       -     
+    MA_0_19             d       101      M        1       0       1     
+    MA_0_19             ck      101      M        1       0       1     
+    MA_0_20                     100      N        -       -       -     
+    MA_0_20             d       100      M        1       0       1     
+    MA_0_20             ck      100      M        1       0       1     
+    MA_0_21                     99       N        -       -       -     
+    MA_0_21             d       99       M        1       0       1     
+    MA_0_21             ck      99       M        1       0       1     
+    MA_0_22                     98       N        -       -       -     
+    MA_0_22             d       98       M        1       0       1     
+    MA_0_22             ck      98       M        1       0       1     
+    MA_0_23                     97       N        -       -       -     
+    MA_0_23             d       97       M        1       0       1     
+    MA_0_23             ck      97       M        1       0       1     
+    MA_0_24                     96       N        -       -       -     
+    MA_1_14                     117      N        -       -       -     
+    MA_1_14             d       117      M        1       0       1     
+    MA_1_14             ck      117      M        1       0       1     
+    MA_1_15                     116      N        -       -       -     
+    MA_1_15             d       116      M        1       0       1     
+    MA_1_15             ck      116      M        1       0       1     
+    MA_1_16                     115      N        -       -       -     
+    MA_1_16             d       115      M        1       0       1     
+    MA_1_16             ck      115      M        1       0       1     
+    MA_1_17                     114      N        -       -       -     
+    MA_1_17             d       114      M        1       0       1     
+    MA_1_17             ck      114      M        1       0       1     
+    MA_1_18                     113      N        -       -       -     
+    MA_1_18             d       113      M        1       0       1     
+    MA_1_18             ck      113      M        1       0       1     
+    MA_1_19                     112      N        -       -       -     
+    MA_1_19             d       112      M        1       0       1     
+    MA_1_19             ck      112      M        1       0       1     
+    MA_1_20                     111      N        -       -       -     
+    MA_1_20             d       111      M        1       0       1     
+    MA_1_20             ck      111      M        1       0       1     
+    MA_1_21                     110      N        -       -       -     
+    MA_1_21             d       110      M        1       0       1     
+    MA_1_21             ck      110      M        1       0       1     
+    MA_1_22                     109      N        -       -       -     
+    MA_1_22             d       109      M        1       0       1     
+    MA_1_22             ck      109      M        1       0       1     
+    MA_1_23                     108      N        -       -       -     
+    MA_1_23             d       108      M        1       0       1     
+    MA_1_23             ck      108      M        1       0       1     
+    MA_1_24                     107      N        -       -       -     
+    MA_2_14                     128      N        -       -       -     
+    MA_2_14             d       128      M        1       0       1     
+    MA_2_14             ck      128      M        1       0       1     
+    MA_2_15                     127      N        -       -       -     
+    MA_2_15             d       127      M        1       0       1     
+    MA_2_15             ck      127      M        1       0       1     
+    MA_2_16                     126      N        -       -       -     
+    MA_2_16             d       126      M        1       0       1     
+    MA_2_16             ck      126      M        1       0       1     
+    MA_2_17                     125      N        -       -       -     
+    MA_2_17             d       125      M        1       0       1     
+    MA_2_17             ck      125      M        1       0       1     
+    MA_2_18                     124      N        -       -       -     
+    MA_2_18             d       124      M        1       0       1     
+    MA_2_18             ck      124      M        1       0       1     
+    MA_2_19                     123      N        -       -       -     
+    MA_2_19             d       123      M        1       0       1     
+    MA_2_19             ck      123      M        1       0       1     
+    MA_2_20                     122      N        -       -       -     
+    MA_2_20             d       122      M        1       0       1     
+    MA_2_20             ck      122      M        1       0       1     
+    MA_2_21                     121      N        -       -       -     
+    MA_2_21             d       121      M        1       0       1     
+    MA_2_21             ck      121      M        1       0       1     
+    MA_2_22                     120      N        -       -       -     
+    MA_2_22             d       120      M        1       0       1     
+    MA_2_22             ck      120      M        1       0       1     
+    MA_2_23                     119      N        -       -       -     
+    MA_2_23             d       119      M        1       0       1     
+    MA_2_23             ck      119      M        1       0       1     
+    MA_2_24                     118      N        -       -       -     
+    MA_3_14                     139      N        -       -       -     
+    MA_3_14             d       139      M        1       0       1     
+    MA_3_14             ck      139      M        1       0       1     
+    MA_3_15                     138      N        -       -       -     
+    MA_3_15             d       138      M        1       0       1     
+    MA_3_15             ck      138      M        1       0       1     
+    MA_3_16                     137      N        -       -       -     
+    MA_3_16             d       137      M        1       0       1     
+    MA_3_16             ck      137      M        1       0       1     
+    MA_3_17                     136      N        -       -       -     
+    MA_3_17             d       136      M        1       0       1     
+    MA_3_17             ck      136      M        1       0       1     
+    MA_3_18                     135      N        -       -       -     
+    MA_3_18             d       135      M        1       0       1     
+    MA_3_18             ck      135      M        1       0       1     
+    MA_3_19                     134      N        -       -       -     
+    MA_3_19             d       134      M        1       0       1     
+    MA_3_19             ck      134      M        1       0       1     
+    MA_3_20                     133      N        -       -       -     
+    MA_3_20             d       133      M        1       0       1     
+    MA_3_20             ck      133      M        1       0       1     
+    MA_3_21                     132      N        -       -       -     
+    MA_3_21             d       132      M        1       0       1     
+    MA_3_21             ck      132      M        1       0       1     
+    MA_3_22                     131      N        -       -       -     
+    MA_3_22             d       131      M        1       0       1     
+    MA_3_22             ck      131      M        1       0       1     
+    MA_3_23                     130      N        -       -       -     
+    MA_3_23             d       130      M        1       0       1     
+    MA_3_23             ck      130      M        1       0       1     
+    MA_3_24                     129      N        -       -       -     
+    MMU                         87       N        1       0       1     
+    MMUADDR                     0        F        -       -       -     
+    MMUEN                       86       N        -       -       -     
+    MMUEN               d       86       M        1       0       1     
+    MMUEN               ar      86       M        1       0       1     
+    MMUEN               ck      86       M        1       0       1     
+    MMUWR                       0        I        1       -       -     
+ !  MREQ                        83       V        -       -       -     
+ !  PHANT                       22       V        -       -       -     
+ !  PIC_CS                      31       V        1       0       1     
+ !  RAM_CS                      36       V        10      0       1     
+ !  RD                          84       V        -       -       -     
+ !  RDo                         27       V        1       0       1     
+    ROM                         0        I        4       -       -     
+    ROM0                        91       N        -       -       -     
+    ROM0                d       91       M        1       0       1     
+    ROM0                ck      91       M        1       0       1     
+    ROM1                        90       N        -       -       -     
+    ROM1                d       90       M        1       0       1     
+    ROM1                ck      90       M        1       0       1     
+    ROM2                        89       N        -       -       -     
+    ROM2                d       89       M        1       0       1     
+    ROM2                ck      89       M        1       0       1     
+    ROM3                        88       N        -       -       -     
+    ROM3                d       88       M        1       0       1     
+    ROM3                ck      88       M        1       0       1     
+ !  ROM_CS                      37       V        5       0       1     
+ !  RST                         1        V        -       -       -     
+    RSTo                        25       V        1       0       1     
+ !  SPI_CS                      34       V        1       0       1     
+    TC                          58       V        1       0       1     
+ !  UART_CS                     35       V        1       0       1     
+    WP                          0        I        4       -       -     
+    WP0                         95       N        -       -       -     
+    WP0                 d       95       M        1       0       1     
+    WP0                 ck      95       M        1       0       1     
+    WP1                         94       N        -       -       -     
+    WP1                 d       94       M        1       0       1     
+    WP1                 ck      94       M        1       0       1     
+    WP2                         93       N        -       -       -     
+    WP2                 d       93       M        1       0       1     
+    WP2                 ck      93       M        1       0       1     
+    WP3                         92       N        -       -       -     
+    WP3                 d       92       M        1       0       1     
+    WP3                 ck      92       M        1       0       1     
+ !  WR                          2        V        -       -       -     
+ !  WRo                         28       V        10      0       1     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+

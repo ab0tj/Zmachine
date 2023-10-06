@@ -1,0 +1,420 @@
+{COMPONENT C:\CUPLTEMP\Z80-SBC.SYM
+
+ {ENVIRONMENT
+  {PDIFvrev 3.00}
+  {Program "CUPL(WM) Version 5.0a"}
+  {DBtype "Schematic"}
+  {DBvrev 1.01}
+  {DBtime "Fri Sep 29 20:17:35 2023 "}
+  {DBunit "MIL"}
+  {DBgrid 10}
+  {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
+          "PINNAM" 6 "PINCON" 4 "REFDES" 2 "ATTR" 6 "SDOT" 1 
+          "DEVICE" 5 "OUTLIN" 5 "ATTR2" 6 "NOTES" 6 "NETNAM" 4 
+          "CMPNAM" 5 "BORDER" 5}
+ }
+
+ {USER
+  {VIEW
+   {Mode SYMB}
+   {Nlst OPEN}
+   {Vw 0 0 2}
+   {Lv 12 2 2 2 0 0 2 2 2 2 0 0 2 1 2 0 0 0 0}
+   {Gs 10 10}
+  }
+ }
+
+ {DISPLAY
+  [Ly "PINNUM"]
+  [Ls "SOLID"][Wd 0]
+  [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+ }
+
+ {SYMBOL
+  {PIN_DEF
+   [Ly "PINCON"]
+   {P MREQ' {Pt "INPUT"}{Lq 0}{Ploc 100 600}}
+   {P RST' {Pt "INPUT"}{Lq 0}{Ploc 100 560}}
+   {P WR' {Pt "INPUT"}{Lq 0}{Ploc 100 540}}
+   {P D7 {Pt "INPUT"}{Lq 0}{Ploc 100 520}}
+   {P D6 {Pt "INPUT"}{Lq 0}{Ploc 100 500}}
+   {P D5 {Pt "INPUT"}{Lq 0}{Ploc 100 480}}
+   {P D4 {Pt "INPUT"}{Lq 0}{Ploc 100 460}}
+   {P D3 {Pt "INPUT"}{Lq 0}{Ploc 100 440}}
+   {P D2 {Pt "INPUT"}{Lq 0}{Ploc 100 420}}
+   {P D1 {Pt "INPUT"}{Lq 0}{Ploc 100 400}}
+   {P D0 {Pt "INPUT"}{Lq 0}{Ploc 100 380}}
+   {P A14 {Pt "INPUT"}{Lq 0}{Ploc 100 360}}
+   {P A15 {Pt "INPUT"}{Lq 0}{Ploc 100 340}}
+   {P PHANT' {Pt "INPUT"}{Lq 0}{Ploc 100 320}}
+   {P BAK' {Pt "INPUT"}{Lq 0}{Ploc 100 300}}
+   {P M1' {Pt "INPUT"}{Lq 0}{Ploc 100 280}}
+   {P IORQ' {Pt "INPUT"}{Lq 0}{Ploc 100 260}}
+   {P A0 {Pt "INPUT"}{Lq 0}{Ploc 100 240}}
+   {P A1 {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
+   {P A2 {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
+   {P A3 {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
+   {P A4 {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P A5 {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P A6 {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P A7 {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P LED0' {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P LED1' {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P INT {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P RD' {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P BUSACK' {Pt "I/O"}{Lq 0}{Ploc 320 20}}
+   {P RSTO {Pt "I/O"}{Lq 0}{Ploc 320 40}}
+   {P RDO' {Pt "I/O"}{Lq 0}{Ploc 320 60}}
+   {P WRO' {Pt "I/O"}{Lq 0}{Ploc 320 80}}
+   {P INTA' {Pt "I/O"}{Lq 0}{Ploc 320 100}}
+   {P PIC_CS' {Pt "I/O"}{Lq 0}{Ploc 320 120}}
+   {P CON_CS' {Pt "I/O"}{Lq 0}{Ploc 320 140}}
+   {P SPI_CS' {Pt "I/O"}{Lq 0}{Ploc 320 160}}
+   {P UART_CS' {Pt "I/O"}{Lq 0}{Ploc 320 180}}
+   {P RAM_CS' {Pt "I/O"}{Lq 0}{Ploc 320 200}}
+   {P ROM_CS' {Pt "I/O"}{Lq 0}{Ploc 320 220}}
+   {P TC {Pt "I/O"}{Lq 0}{Ploc 320 240}}
+   {P FLP_CS' {Pt "I/O"}{Lq 0}{Ploc 320 260}}
+   {P MA14 {Pt "I/O"}{Lq 0}{Ploc 320 280}}
+   {P MA15 {Pt "I/O"}{Lq 0}{Ploc 320 300}}
+   {P MA16 {Pt "I/O"}{Lq 0}{Ploc 320 320}}
+   {P MA17 {Pt "I/O"}{Lq 0}{Ploc 320 340}}
+   {P MA18 {Pt "I/O"}{Lq 0}{Ploc 320 360}}
+   {P MA19 {Pt "I/O"}{Lq 0}{Ploc 320 380}}
+   {P MA20 {Pt "I/O"}{Lq 0}{Ploc 320 400}}
+   {P MA21 {Pt "I/O"}{Lq 0}{Ploc 320 420}}
+   {P MA22 {Pt "I/O"}{Lq 0}{Ploc 320 440}}
+   {P MA23 {Pt "I/O"}{Lq 0}{Ploc 320 460}}
+  }
+
+  {PKG
+   [Ly "REFDES"]
+   [Ts 25][Tj "CB"][Tr 0][Tm "N"]
+   {Rdl 210 630}
+
+   [Ly "PINNUM"]
+   [Ts 15][Tj "RC"]
+   {Pnl 120 610}
+   [Ts 15][Tj "RC"]
+   {Pnl 120 570}
+   {Pnl 120 550}
+   {Pnl 120 530}
+   {Pnl 120 510}
+   {Pnl 120 490}
+   {Pnl 120 470}
+   {Pnl 120 450}
+   {Pnl 120 430}
+   {Pnl 120 410}
+   {Pnl 120 390}
+   {Pnl 120 370}
+   {Pnl 120 350}
+   {Pnl 120 330}
+   {Pnl 120 310}
+   {Pnl 120 290}
+   {Pnl 120 270}
+   {Pnl 120 250}
+   {Pnl 120 230}
+   {Pnl 120 210}
+   {Pnl 120 190}
+   {Pnl 120 170}
+   {Pnl 120 150}
+   {Pnl 120 130}
+   {Pnl 120 110}
+   {Pnl 120 90}
+   {Pnl 120 70}
+   {Pnl 120 50}
+   {Pnl 120 30}
+   [Ts 15][Tj "LC"]
+   {Pnl 300 30}
+   {Pnl 300 50}
+   {Pnl 300 70}
+   {Pnl 300 90}
+   {Pnl 300 110}
+   {Pnl 300 130}
+   {Pnl 300 150}
+   {Pnl 300 170}
+   {Pnl 300 190}
+   {Pnl 300 210}
+   {Pnl 300 230}
+   {Pnl 300 250}
+   {Pnl 300 270}
+   {Pnl 300 290}
+   {Pnl 300 310}
+   {Pnl 300 330}
+   {Pnl 300 350}
+   {Pnl 300 370}
+   {Pnl 300 390}
+   {Pnl 300 410}
+   {Pnl 300 430}
+   {Pnl 300 450}
+   {Pnl 300 470}
+
+   {Sd A 83 1 2 6 8 9 10 11 12 15 16 20 21 22 39 40 41 44 45 46 48 49 50 51 52 54 55 75 84 24 25 27 28 30 31 33 34 35 36 37 58 60 61 63 64 65 67 68 69 70 73 74}
+  }
+
+  {PIC
+   [Ly "GATE"]
+   [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+   {R 130 620 290 0}
+   {L 120 600 100 600}
+   {C 125 600 5}
+   {L 130 610 140 600 130 590}
+   {L 120 560 100 560}
+   {C 125 560 5}
+   {L 120 540 100 540}
+   {C 125 540 5}
+   {L 130 520 100 520}
+   {L 130 500 100 500}
+   {L 130 480 100 480}
+   {L 130 460 100 460}
+   {L 130 440 100 440}
+   {L 130 420 100 420}
+   {L 130 400 100 400}
+   {L 130 380 100 380}
+   {L 130 360 100 360}
+   {L 130 340 100 340}
+   {L 120 320 100 320}
+   {C 125 320 5}
+   {L 120 300 100 300}
+   {C 125 300 5}
+   {L 120 280 100 280}
+   {C 125 280 5}
+   {L 120 260 100 260}
+   {C 125 260 5}
+   {L 130 240 100 240}
+   {L 130 220 100 220}
+   {L 130 200 100 200}
+   {L 130 180 100 180}
+   {L 130 160 100 160}
+   {L 130 140 100 140}
+   {L 130 120 100 120}
+   {L 130 100 100 100}
+   {L 120 80 100 80}
+   {C 125 80 5}
+   {L 120 60 100 60}
+   {C 125 60 5}
+   {L 130 40 100 40}
+   {L 120 20 100 20}
+   {C 125 20 5}
+   {C 295 20 5}
+   {L 300 20 320 20}
+   {L 290 40 320 40}
+   {C 295 60 5}
+   {L 300 60 320 60}
+   {C 295 80 5}
+   {L 300 80 320 80}
+   {C 295 100 5}
+   {L 300 100 320 100}
+   {C 295 120 5}
+   {L 300 120 320 120}
+   {C 295 140 5}
+   {L 300 140 320 140}
+   {C 295 160 5}
+   {L 300 160 320 160}
+   {C 295 180 5}
+   {L 300 180 320 180}
+   {C 295 200 5}
+   {L 300 200 320 200}
+   {C 295 220 5}
+   {L 300 220 320 220}
+   {L 290 240 320 240}
+   {C 295 260 5}
+   {L 300 260 320 260}
+   {L 290 280 320 280}
+   {L 290 300 320 300}
+   {L 290 320 320 320}
+   {L 290 340 320 340}
+   {L 290 360 320 360}
+   {L 290 380 320 380}
+   {L 290 400 320 400}
+   {L 290 420 320 420}
+   {L 290 440 320 440}
+   {L 290 460 320 460}
+   [Ly "PINNAM"]
+   [Tj "LC"]
+   {T "MREQ'" 140 600}
+   {T "RST'" 140 560}
+   {T "WR'" 140 540}
+   {T "D7" 140 520}
+   {T "D6" 140 500}
+   {T "D5" 140 480}
+   {T "D4" 140 460}
+   {T "D3" 140 440}
+   {T "D2" 140 420}
+   {T "D1" 140 400}
+   {T "D0" 140 380}
+   {T "A14" 140 360}
+   {T "A15" 140 340}
+   {T "PHANT'" 140 320}
+   {T "BAK'" 140 300}
+   {T "M1'" 140 280}
+   {T "IORQ'" 140 260}
+   {T "A0" 140 240}
+   {T "A1" 140 220}
+   {T "A2" 140 200}
+   {T "A3" 140 180}
+   {T "A4" 140 160}
+   {T "A5" 140 140}
+   {T "A6" 140 120}
+   {T "A7" 140 100}
+   {T "LED0'" 140 80}
+   {T "LED1'" 140 60}
+   {T "INT" 140 40}
+   {T "RD'" 140 20}
+   [Tj "RC"]
+   {T "BUSACK'" 280 20}
+   {T "RSTO" 280 40}
+   {T "RDO'" 280 60}
+   {T "WRO'" 280 80}
+   {T "INTA'" 280 100}
+   {T "PIC_CS'" 280 120}
+   {T "CON_CS'" 280 140}
+   {T "SPI_CS'" 280 160}
+   {T "UART_CS'" 280 180}
+   {T "RAM_CS'" 280 200}
+   {T "ROM_CS'" 280 220}
+   {T "TC" 280 240}
+   {T "FLP_CS'" 280 260}
+   {T "MA14" 280 280}
+   {T "MA15" 280 300}
+   {T "MA16" 280 320}
+   {T "MA17" 280 340}
+   {T "MA18" 280 360}
+   {T "MA19" 280 380}
+   {T "MA20" 280 400}
+   {T "MA21" 280 420}
+   {T "MA22" 280 440}
+   {T "MA23" 280 460}
+   [Ly "DEVICE"]
+   [Tj "CT"]
+   {T "F1508ISPPLCC84" 210 -10}
+  }
+
+  {ATR
+   {IN
+    {Org 100 20}
+    {Ty 255}
+   }
+   {EX
+    [Ly "ATTR2"]
+    [Ts 12][Tj "CT"][Tr 0][Tm "N"]
+    {At PLD C:\CUPLTEMP\Z80-SBC 210 620}
+   }
+  }
+ }
+
+ {DETAIL
+  {ANNOTATE
+  }
+
+  {NET_DEF
+   {N MREQ'
+   }
+   {N RST'
+   }
+   {N WR'
+   }
+   {N D7
+   }
+   {N D6
+   }
+   {N D5
+   }
+   {N D4
+   }
+   {N D3
+   }
+   {N D2
+   }
+   {N D1
+   }
+   {N D0
+   }
+   {N A14
+   }
+   {N A15
+   }
+   {N PHANT'
+   }
+   {N BAK'
+   }
+   {N M1'
+   }
+   {N IORQ'
+   }
+   {N A0
+   }
+   {N A1
+   }
+   {N A2
+   }
+   {N A3
+   }
+   {N A4
+   }
+   {N A5
+   }
+   {N A6
+   }
+   {N A7
+   }
+   {N LED0'
+   }
+   {N LED1'
+   }
+   {N INT
+   }
+   {N RD'
+   }
+   {N BUSACK'
+   }
+   {N RSTO
+   }
+   {N RDO'
+   }
+   {N WRO'
+   }
+   {N INTA'
+   }
+   {N PIC_CS'
+   }
+   {N CON_CS'
+   }
+   {N SPI_CS'
+   }
+   {N UART_CS'
+   }
+   {N RAM_CS'
+   }
+   {N ROM_CS'
+   }
+   {N TC
+   }
+   {N FLP_CS'
+   }
+   {N MA14
+   }
+   {N MA15
+   }
+   {N MA16
+   }
+   {N MA17
+   }
+   {N MA18
+   }
+   {N MA19
+   }
+   {N MA20
+   }
+   {N MA21
+   }
+   {N MA22
+   }
+   {N MA23
+   }
+  }
+
+  {SUBCOMP
+  }
+ }
+}

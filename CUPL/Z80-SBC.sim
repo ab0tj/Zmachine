@@ -1,0 +1,614 @@
+%SIGNAL
+PIN  44 =  A0 
+PIN  45 =  A1 
+PIN  46 =  A2 
+PIN  48 =  A3 
+PIN  49 =  A4 
+PIN  50 =  A5 
+PIN  51 =  A6 
+PIN  52 =  A7 
+PIN  20 =  A14 
+PIN  21 =  A15 
+PIN  39 = !BAK 
+PIN  24 = !BUSACK 
+PIN  33 = !CON_CS 
+PIN  16 =  D0 
+PIN  15 =  D1 
+PIN  12 =  D2 
+PIN  11 =  D3 
+PIN  10 =  D4 
+PIN   9 =  D5 
+PIN   8 =  D6 
+PIN   6 =  D7 
+PIN  60 = !FLP_CS 
+PIN  75 =  INT 
+PIN  30 = !INTA 
+PIN  85 =  INTACK 
+PIN  41 = !IORQ 
+PIN  54 = !LED0 
+PIN  55 = !LED1 
+PIN  40 = !M1 
+PIN  61 =  MA14 
+PIN  63 =  MA15 
+PIN  64 =  MA16 
+PIN  65 =  MA17 
+PIN  67 =  MA18 
+PIN  68 =  MA19 
+PIN  69 =  MA20 
+PIN  70 =  MA21 
+PIN  73 =  MA22 
+PIN  74 =  MA23 
+PIN 106 =  MA_0_14 
+PIN 105 =  MA_0_15 
+PIN 104 =  MA_0_16 
+PIN 103 =  MA_0_17 
+PIN 102 =  MA_0_18 
+PIN 101 =  MA_0_19 
+PIN 100 =  MA_0_20 
+PIN  99 =  MA_0_21 
+PIN  98 =  MA_0_22 
+PIN  97 =  MA_0_23 
+PIN  96 =  MA_0_24 
+PIN 117 =  MA_1_14 
+PIN 116 =  MA_1_15 
+PIN 115 =  MA_1_16 
+PIN 114 =  MA_1_17 
+PIN 113 =  MA_1_18 
+PIN 112 =  MA_1_19 
+PIN 111 =  MA_1_20 
+PIN 110 =  MA_1_21 
+PIN 109 =  MA_1_22 
+PIN 108 =  MA_1_23 
+PIN 107 =  MA_1_24 
+PIN 128 =  MA_2_14 
+PIN 127 =  MA_2_15 
+PIN 126 =  MA_2_16 
+PIN 125 =  MA_2_17 
+PIN 124 =  MA_2_18 
+PIN 123 =  MA_2_19 
+PIN 122 =  MA_2_20 
+PIN 121 =  MA_2_21 
+PIN 120 =  MA_2_22 
+PIN 119 =  MA_2_23 
+PIN 118 =  MA_2_24 
+PIN 139 =  MA_3_14 
+PIN 138 =  MA_3_15 
+PIN 137 =  MA_3_16 
+PIN 136 =  MA_3_17 
+PIN 135 =  MA_3_18 
+PIN 134 =  MA_3_19 
+PIN 133 =  MA_3_20 
+PIN 132 =  MA_3_21 
+PIN 131 =  MA_3_22 
+PIN 130 =  MA_3_23 
+PIN 129 =  MA_3_24 
+PIN  87 =  MMU 
+PIN  86 =  MMUEN 
+PIN  83 = !MREQ 
+PIN  22 = !PHANT 
+PIN  31 = !PIC_CS 
+PIN  36 = !RAM_CS 
+PIN  84 = !RD 
+PIN  27 = !RDo 
+PIN  91 =  ROM0 
+PIN  90 =  ROM1 
+PIN  89 =  ROM2 
+PIN  88 =  ROM3 
+PIN  37 = !ROM_CS 
+PIN   1 = !RST 
+PIN  25 =  RSTo 
+PIN  34 = !SPI_CS 
+PIN  58 =  TC 
+PIN  35 = !UART_CS 
+PIN  95 =  WP0 
+PIN  94 =  WP1 
+PIN  93 =  WP2 
+PIN  92 =  WP3 
+PIN   2 = !WR 
+PIN  28 = !WRo 
+%END
+
+%FIELD
+FIELD IOADDR = A7,A6,A5,A4,A3,A2,A1,A0
+FIELD MMUADDR = A2,A1,A0
+%END
+
+%EQUATION
+BUSACK =>
+    BAK
+
+CON_CS =>
+    !A3 & !A4 & !A5 & !A6 & !A7 & IORQ
+
+FLP_CS =>
+    !A3 & A4 & A5 & !A6 & !A7 & IORQ
+
+INTA =>
+    IORQ & M1
+  # INTACK & RD
+
+INTACK.d  =>
+    1 
+
+INTACK.ar  =>
+    WR
+  # RST
+
+INTACK.ck  =>
+    IORQ & M1
+
+LED0.d  =>
+    D0
+
+LED0.ar  =>
+    RST
+
+LED0.ck  =>
+    A0 & A1 & A2 & A3 & A4 & A5 & A6 & A7 & IORQ & WR
+
+LED1.d  =>
+    D1
+
+LED1.ar  =>
+    RST
+
+LED1.ck  =>
+    A0 & A1 & A2 & A3 & A4 & A5 & A6 & A7 & IORQ & WR
+
+MA14 =>
+    A14 & !MMU
+  # !A14 & !A15 & MA_0_14 & MMU
+  # A14 & !A15 & MA_1_14 & MMU
+  # !A14 & A15 & MA_2_14 & MMU
+  # A14 & A15 & MA_3_14 & MMU
+
+MA14.oe  =>
+    !BAK
+
+MA15 =>
+    A15 & !MMU
+  # !A14 & !A15 & MA_0_15 & MMU
+  # A14 & !A15 & MA_1_15 & MMU
+  # !A14 & A15 & MA_2_15 & MMU
+  # A14 & A15 & MA_3_15 & MMU
+
+MA15.oe  =>
+    !BAK
+
+MA16 =>
+    !A14 & !A15 & MA_0_16 & MMU
+  # A14 & !A15 & MA_1_16 & MMU
+  # !A14 & A15 & MA_2_16 & MMU
+  # A14 & A15 & MA_3_16 & MMU
+
+MA16.oe  =>
+    !BAK
+
+MA17 =>
+    !A14 & !A15 & MA_0_17 & MMU
+  # A14 & !A15 & MA_1_17 & MMU
+  # !A14 & A15 & MA_2_17 & MMU
+  # A14 & A15 & MA_3_17 & MMU
+
+MA17.oe  =>
+    !BAK
+
+MA18 =>
+    !A14 & !A15 & MA_0_18 & MMU
+  # A14 & !A15 & MA_1_18 & MMU
+  # !A14 & A15 & MA_2_18 & MMU
+  # A14 & A15 & MA_3_18 & MMU
+
+MA18.oe  =>
+    !BAK
+
+MA19 =>
+    !A14 & !A15 & MA_0_19 & MMU
+  # A14 & !A15 & MA_1_19 & MMU
+  # !A14 & A15 & MA_2_19 & MMU
+  # A14 & A15 & MA_3_19 & MMU
+
+MA19.oe  =>
+    !BAK
+
+MA20 =>
+    !A14 & !A15 & MA_0_20 & MMU
+  # A14 & !A15 & MA_1_20 & MMU
+  # !A14 & A15 & MA_2_20 & MMU
+  # A14 & A15 & MA_3_20 & MMU
+
+MA20.oe  =>
+    !BAK
+
+MA21 =>
+    !A14 & !A15 & MA_0_21 & MMU
+  # A14 & !A15 & MA_1_21 & MMU
+  # !A14 & A15 & MA_2_21 & MMU
+  # A14 & A15 & MA_3_21 & MMU
+
+MA21.oe  =>
+    !BAK
+
+MA22 =>
+    !A14 & !A15 & MA_0_22 & MMU
+  # A14 & !A15 & MA_1_22 & MMU
+  # !A14 & A15 & MA_2_22 & MMU
+  # A14 & A15 & MA_3_22 & MMU
+
+MA22.oe  =>
+    !BAK
+
+MA23 =>
+    !A14 & !A15 & MA_0_23 & MMU
+  # A14 & !A15 & MA_1_23 & MMU
+  # !A14 & A15 & MA_2_23 & MMU
+  # A14 & A15 & MA_3_23 & MMU
+
+MA23.oe  =>
+    !BAK
+
+MA_0_14.d  =>
+    D6
+
+MA_0_14.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_15.d  =>
+    D7
+
+MA_0_15.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_16.d  =>
+    D0
+
+MA_0_16.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_17.d  =>
+    D1
+
+MA_0_17.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_18.d  =>
+    D2
+
+MA_0_18.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_19.d  =>
+    D3
+
+MA_0_19.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_20.d  =>
+    D4
+
+MA_0_20.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_21.d  =>
+    D5
+
+MA_0_21.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_22.d  =>
+    D6
+
+MA_0_22.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_0_23.d  =>
+    D7
+
+MA_0_23.ck  =>
+    A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_14.d  =>
+    D6
+
+MA_1_14.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_15.d  =>
+    D7
+
+MA_1_15.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_16.d  =>
+    D0
+
+MA_1_16.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_17.d  =>
+    D1
+
+MA_1_17.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_18.d  =>
+    D2
+
+MA_1_18.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_19.d  =>
+    D3
+
+MA_1_19.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_20.d  =>
+    D4
+
+MA_1_20.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_21.d  =>
+    D5
+
+MA_1_21.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_22.d  =>
+    D6
+
+MA_1_22.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_1_23.d  =>
+    D7
+
+MA_1_23.ck  =>
+    A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_14.d  =>
+    D6
+
+MA_2_14.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_15.d  =>
+    D7
+
+MA_2_15.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_16.d  =>
+    D0
+
+MA_2_16.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_17.d  =>
+    D1
+
+MA_2_17.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_18.d  =>
+    D2
+
+MA_2_18.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_19.d  =>
+    D3
+
+MA_2_19.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_20.d  =>
+    D4
+
+MA_2_20.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_21.d  =>
+    D5
+
+MA_2_21.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_22.d  =>
+    D6
+
+MA_2_22.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_2_23.d  =>
+    D7
+
+MA_2_23.ck  =>
+    A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_14.d  =>
+    D6
+
+MA_3_14.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_15.d  =>
+    D7
+
+MA_3_15.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_16.d  =>
+    D0
+
+MA_3_16.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_17.d  =>
+    D1
+
+MA_3_17.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_18.d  =>
+    D2
+
+MA_3_18.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_19.d  =>
+    D3
+
+MA_3_19.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_20.d  =>
+    D4
+
+MA_3_20.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_21.d  =>
+    D5
+
+MA_3_21.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_22.d  =>
+    D6
+
+MA_3_22.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MA_3_23.d  =>
+    D7
+
+MA_3_23.ck  =>
+    A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MMU =>
+    !IORQ & MMUEN
+
+MMUEN.d  =>
+    1 
+
+MMUEN.ar  =>
+    RST
+
+MMUEN.ck  =>
+    !A0 & !A1 & !A2 & A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+MMUWR =>
+    !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+PIC_CS =>
+    !A1 & !A2 & !A3 & !A4 & A5 & !A6 & !A7 & IORQ
+
+RAM_CS =>
+    A15 & !MMU & MREQ & !PHANT
+  # !A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0
+  # A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM1
+  # !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0 & ROM1
+  # !A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM2
+  # !A14 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0 & ROM2
+  # A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM2 & ROM3
+  # !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM0 & ROM1 & ROM2 & ROM3
+  # A14 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM1 & ROM3
+  # A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & ROM3
+
+RDo =>
+    !INTACK & RD
+
+ROM =>
+    !A14 & !A15 & !ROM0
+  # A14 & !A15 & !ROM1
+  # !A14 & A15 & !ROM2
+  # A14 & A15 & !ROM3
+
+ROM0.d  =>
+    D0
+
+ROM0.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM1.d  =>
+    D0
+
+ROM1.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM2.d  =>
+    D0
+
+ROM2.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM3.d  =>
+    D0
+
+ROM3.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+ROM_CS =>
+    !A15 & !MMU & MREQ & !PHANT
+  # !A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & !ROM0
+  # A14 & !A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & !ROM1
+  # !A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & !ROM2
+  # A14 & A15 & !MA19 & !MA20 & !MA21 & !MA22 & !MA23 & MMU & MREQ & !PHANT & !ROM3
+
+RSTo =>
+    RST
+
+SPI_CS =>
+    !A1 & !A2 & !A3 & A4 & !A5 & !A6 & !A7 & IORQ
+
+TC =>
+    !A1 & !A2 & !A3 & A4 & A5 & !A6 & !A7 & IORQ & WR
+
+UART_CS =>
+    A4 & !A5 & A6 & !A7 & IORQ
+
+WP =>
+    !A14 & !A15 & WP0
+  # A14 & !A15 & WP1
+  # !A14 & A15 & WP2
+  # A14 & A15 & WP3
+
+WP0.d  =>
+    D1
+
+WP0.ck  =>
+    !A0 & !A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WP1.d  =>
+    D1
+
+WP1.ck  =>
+    !A0 & A1 & !A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WP2.d  =>
+    D1
+
+WP2.ck  =>
+    !A0 & !A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WP3.d  =>
+    D1
+
+WP3.ck  =>
+    !A0 & A1 & A2 & !A3 & !A4 & !A5 & A6 & !A7 & !BAK & IORQ & WR
+
+WRo =>
+    !MMU & WR
+  # !A14 & !A15 & !WP0 & WR
+  # A14 & !A15 & !WP1 & WR
+  # !A15 & !WP0 & !WP1 & WR
+  # !A14 & A15 & !WP2 & WR
+  # !A14 & !WP0 & !WP2 & WR
+  # A15 & !WP2 & !WP3 & WR
+  # !WP0 & !WP1 & !WP2 & !WP3 & WR
+  # A14 & A15 & !WP3 & WR
+  # A14 & !WP1 & !WP3 & WR
+
+%END
