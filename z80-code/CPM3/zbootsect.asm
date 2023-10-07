@@ -13,7 +13,7 @@ sd_cap:     equ 0FFFFh      ; SD capacity flag variable
 dma:        equ sd_cap-2    ; Current DMA address variable
 stack:      equ sd_cap-3    ; Top of stack
 
-SDC: macro val
+SDC: macro val              ; Sets the CS pins and SCK speed
     ld a, val
     out (PORT_SPI_CTRL), a
 endm
@@ -67,8 +67,8 @@ load:
 
 done:
     ld a, 10
-    out (PORT_CON_DAT), a
-    jp pc_addr
+    out (PORT_CON_DAT), a   ; output a LF to the console
+    jp pc_addr          ; jump to the code we just loaded
 
 ; SD card functions
 sd_getblock:    ; read a block specified by bcde (LBA) into the buffer
@@ -103,7 +103,7 @@ sd_dummy:               ; send dummy bytes, number of bytes in b
     jr nz, sd_dummy     ; loop until done
     ret
 
-sd_cmd:
+sd_cmd:                 ; Send a command to the SD card. Returns with response in A and E.
     push af
     call spi_rx          ; send a dummy byte
     pop af
