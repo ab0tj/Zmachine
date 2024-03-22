@@ -1,5 +1,5 @@
 Zmachine is a single board computer with the following features:
-- RP2040 based console that provides 8-bit VGA output, PS2 keyboard interface, PWM based sound, etc
+- RP2040 based console that provides 8-bit color VGA output, PS2 keyboard interface, PWM based sound, etc
 - Z80 CPU, clock is provided by the RP2040 so it can be set to any value the chip supports
 - 512k of SRAM with MMU to support paging
 - 128, 256, or 512k of flash ROM
@@ -25,6 +25,7 @@ Hardware that doesn't yet have software support, therefore untested so far:
 - SPI for things other than the SD cards
 - I2C/DDC
 - RC2014 slots
+- Interrupts
 
 Software status:
 - CP/M3 non-banked system up and running
