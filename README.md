@@ -28,9 +28,11 @@ Hardware that doesn't yet have software support, therefore untested so far:
 - Interrupts
 
 Software status:
-- CP/M3 non-banked system up and running
+- CPM3 non-banked system up and running
 - Still need to write a banked BIOS for CPM3
 - VGA console is still very basic. Monochrome text mode only, so far.
+- CPM treats the SD cards as one 8MB disk each, but with a few changes it would be possible to
+  use them as multiple 8MB partitions.
 
 Also provided is "Zemu", which is hardware and software for development. It implements the Z80 in
 software on a Raspberry Pi to allow for detailed debugging and testing. The RP2040 console and SD cards
