@@ -18,6 +18,7 @@ Hardware tested and working:
 - PS2 keyboard
 - SD cards
 - MMU
+- Console over USB virtual serial
 
 Hardware that doesn't yet have software support, therefore untested so far:
 - Floppy interface
@@ -26,6 +27,7 @@ Hardware that doesn't yet have software support, therefore untested so far:
 - I2C/DDC
 - RC2014 slots
 - Interrupts
+- USB keyboard
 
 Software status:
 - CPM3 non-banked system up and running
